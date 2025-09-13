@@ -8,7 +8,7 @@ export default function Home() {
       <ul>
         <li>
           {/* During development this points to your local midsummer app */}
-          <a href="http://localhost:3001/midsummer">Midsummer (workshops)</a>
+          <a href="https://midsummerlab.com">Midsummer (workshops)</a>
         </li>
         <li>
           <a href="/work">Portfolio</a>
