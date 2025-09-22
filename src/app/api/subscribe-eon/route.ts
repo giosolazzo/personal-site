@@ -19,7 +19,19 @@ function parseQueryFromReferer(referer?: string | null) {
   }
 }
 
-async function subscribeToButtondown(email: string, opts: { referer?: string | null; country?: string | null }) {
+// build a metadata object that excludes null/undefined (Buttondown rejects null)
+function buildMetadata(obj: Record<string, string | undefined | null>) {
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(obj)) {
+    if (typeof v === "string" && v.length) out[k] = v;
+  }
+  return Object.keys(out).length ? out : undefined;
+}
+
+async function subscribeToButtondown(
+  email: string,
+  opts: { referer?: string | null; country?: string | null }
+) {
   const apiKey = process.env.BUTTONDOWN_API_KEY;
   if (!apiKey) throw new Error("Missing BUTTONDOWN_API_KEY");
 
@@ -45,20 +57,20 @@ async function subscribeToButtondown(email: string, opts: { referer?: string | n
     .filter(Boolean)
     .join("; ");
 
-  // Metadata: shows up in the subscriber’s “Metadata” panel
-  const metadata = {
-    src: qp.src || null,
-    utm_source: qp.utm_source || null,
-    utm_medium: qp.utm_medium || null,
-    utm_campaign: qp.utm_campaign || null,
-    country: opts.country || null,
-  };
+  // Metadata: send ONLY defined keys (no nulls)
+  const metadata = buildMetadata({
+    src: qp.src,
+    utm_source: qp.utm_source,
+    utm_medium: qp.utm_medium,
+    utm_campaign: qp.utm_campaign,
+    country: opts.country ?? undefined,
+  });
 
   const payload = {
     email_address: email,
     email,
     tags,
-    metadata,
+    metadata, // undefined is fine; Buttondown will ignore
     referrer_url: opts.referer || undefined,
     notes: notes || undefined,
   };
@@ -69,7 +81,6 @@ async function subscribeToButtondown(email: string, opts: { referer?: string | n
       Authorization: `Token ${apiKey}`,
       "Content-Type": "application/json",
       Accept: "application/json",
-      // If you’ve pinned an API version in Buttondown, uncomment the line below and match it:
       // "X-Buttondown-API-Version": "2025-06-01",
     },
     body: JSON.stringify(payload),
