@@ -1,3 +1,5 @@
+"use client";
+
 export default function Eon() {
   return (
     <main className="min-h-screen bg-black text-zinc-100 px-6 py-12">
