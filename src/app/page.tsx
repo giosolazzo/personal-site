@@ -22,8 +22,9 @@ export default function Home() {
             </p>
           </a>
 
+          {/* Labeled Eon link: adds ?src=home-card for clean attribution */}
           <Link
-            href="/eon"
+            href={{ pathname: "/eon", query: { src: "home-card" } }}
             className="rounded-2xl border border-zinc-700/60 p-5 hover:bg-zinc-100 hover:text-black transition block"
           >
             <h2 className="text-xl font-medium">Eon</h2>
