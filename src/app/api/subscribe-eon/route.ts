@@ -1,33 +1,31 @@
 import { NextResponse } from "next/server";
 
-// Read src/utm params from the Referer URL (the page the form was on)
-function parseQuery(url?: string | null) {
+// Pull src/utm from the page the form was submitted on (Referer)
+function parseQueryFromReferer(referer?: string | null) {
   try {
-    if (!url) return {};
-    const u = new URL(url);
-    const q = new URLSearchParams(u.search);
+    if (!referer) return {};
+    const u = new URL(referer);
+    const q = u.searchParams;
     const get = (k: string) => q.get(k) || undefined;
     return {
       src: get("src"),
       utm_source: get("utm_source"),
       utm_medium: get("utm_medium"),
       utm_campaign: get("utm_campaign"),
+      ref: referer,
     };
   } catch {
     return {};
   }
 }
 
-async function subscribeToButtondown(email: string, opts: {
-  referer?: string | null;
-  country?: string | null;
-}) {
+async function subscribeToButtondown(email: string, opts: { referer?: string | null; country?: string | null }) {
   const apiKey = process.env.BUTTONDOWN_API_KEY;
   if (!apiKey) throw new Error("Missing BUTTONDOWN_API_KEY");
 
-  const qp = parseQuery(opts.referer);
+  const qp = parseQueryFromReferer(opts.referer);
 
-  // Build tags for easy segmentation
+  // Tags: easy segmentation in Buttondown
   const tags = [
     "Eon-Interest",
     qp.src ? `src-${qp.src}` : undefined,
@@ -35,20 +33,32 @@ async function subscribeToButtondown(email: string, opts: {
     opts.country ? `ctry-${opts.country}` : undefined,
   ].filter(Boolean) as string[];
 
-  // Build a simple notes string for quick searching
+  // Notes: free-text searchable audit trail
   const notes = [
     qp.src ? `src=${qp.src}` : null,
     qp.utm_source ? `utm_source=${qp.utm_source}` : null,
     qp.utm_medium ? `utm_medium=${qp.utm_medium}` : null,
     qp.utm_campaign ? `utm_campaign=${qp.utm_campaign}` : null,
     opts.country ? `country=${opts.country}` : null,
-    opts.referer ? `ref=${opts.referer}` : null,
-  ].filter(Boolean).join("; ");
+    qp.ref ? `ref=${qp.ref}` : null,
+  ]
+    .filter(Boolean)
+    .join("; ");
+
+  // Metadata: shows up in the subscriber’s “Metadata” panel
+  const metadata = {
+    src: qp.src || null,
+    utm_source: qp.utm_source || null,
+    utm_medium: qp.utm_medium || null,
+    utm_campaign: qp.utm_campaign || null,
+    country: opts.country || null,
+  };
 
   const payload = {
     email_address: email,
     email,
     tags,
+    metadata,
     referrer_url: opts.referer || undefined,
     notes: notes || undefined,
   };
@@ -59,7 +69,8 @@ async function subscribeToButtondown(email: string, opts: {
       Authorization: `Token ${apiKey}`,
       "Content-Type": "application/json",
       Accept: "application/json",
-      // "X-Buttondown-API-Version": "2025-06-01", // uncomment if you set a specific API version in Buttondown
+      // If you’ve pinned an API version in Buttondown, uncomment the line below and match it:
+      // "X-Buttondown-API-Version": "2025-06-01",
     },
     body: JSON.stringify(payload),
     cache: "no-store",
@@ -67,11 +78,11 @@ async function subscribeToButtondown(email: string, opts: {
 
   if (res.ok || res.status === 201) return true;
 
-  // Common “already exists / similar” responses — treat as success
+  // Treat “already exists” as success so UX stays smooth
   if ([400, 409, 422].includes(res.status)) {
-    const txt = await res.text().catch(() => "");
-    if (/already|exists/i.test(txt)) return true;
-    throw new Error(`Buttondown error ${res.status}: ${txt}`);
+    const text = await res.text().catch(() => "");
+    if (/already|exists/i.test(text)) return true;
+    throw new Error(`Buttondown error ${res.status}: ${text}`);
   }
 
   throw new Error(`Buttondown error ${res.status}: ${await res.text().catch(() => "")}`);
@@ -79,9 +90,9 @@ async function subscribeToButtondown(email: string, opts: {
 
 export async function POST(req: Request) {
   try {
+    // Accept JSON and form posts
     let email = "";
     const ct = req.headers.get("content-type") || "";
-
     if (ct.includes("application/json")) {
       const json = await req.json();
       email = (json.email || json.email_address || "").toString().trim();
@@ -99,11 +110,11 @@ export async function POST(req: Request) {
       country: req.headers.get("x-vercel-ip-country"),
     });
 
-    // Thank-you screen
+    // Always send users to the thank-you page
     return NextResponse.redirect(new URL("/eon/thanks", req.url), 303);
   } catch (err) {
     console.error(err);
-    // Still send them to thanks so the UX is smooth
+    // Keep UX smooth even on API error
     return NextResponse.redirect(new URL("/eon/thanks", req.url), 303);
   }
 }
