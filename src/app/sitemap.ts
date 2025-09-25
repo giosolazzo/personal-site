@@ -1,11 +1,15 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://giuseppesolazzo.com";
-  const now = new Date();
+  const host =
+    process.env.NODE_ENV === "production"
+      ? "https://giuseppesolazzo.com"
+      : "http://localhost:3000";
+
   return [
-    { url: `${base}/`, lastModified: now, priority: 0.9 },
-    { url: `${base}/portfolio`, lastModified: now, priority: 0.6 },
-    { url: `${base}/eon`, lastModified: now, priority: 0.6 },
+    { url: `${host}/`, changeFrequency: "weekly", priority: 1 },
+    { url: `${host}/eon`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${host}/portfolio`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${host}/privacy`, changeFrequency: "yearly", priority: 0.3 },
   ];
 }
