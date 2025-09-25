@@ -39,6 +39,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteHeader />
         {children}
         {/* cookie-less web analytics + real-user performance */}
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+  {children}
+  <SiteFooter />
+  <Analytics />
+  <SpeedInsights />
+</body>
         <Analytics />
         <SpeedInsights />
       </body>

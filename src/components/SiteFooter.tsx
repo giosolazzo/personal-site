@@ -1,9 +1,12 @@
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-zinc-800 text-zinc-400 text-xs">
-      <div className="max-w-5xl mx-auto px-4 py-6 flex items-center justify-between">
-        <p>© {new Date().getFullYear()} Giuseppe Solazzo</p>
-        <a href="/privacy" className="hover:text-white">Privacy</a>
+    <footer className="px-6 py-10 text-sm text-zinc-400">
+      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+        <div>© {new Date().getFullYear()} Giuseppe Solazzo</div>
+        <nav className="flex gap-4">
+          <a className="hover:underline" href="/privacy">Privacy</a>
+          <a className="hover:underline" href="https://midsummerlab.com/midsummer">Midsummer</a>
+        </nav>
       </div>
     </footer>
   );
