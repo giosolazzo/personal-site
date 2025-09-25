@@ -1,15 +1,31 @@
-export default function Portfolio() {
-  return (
-    <main className="min-h-screen bg-black text-zinc-100 px-6 py-12">
-      <div className="max-w-3xl mx-auto space-y-6">
-        <h1 className="text-3xl font-semibold">Portfolio</h1>
-        <p className="text-zinc-300">Drafting a more personal, narrative take on my work.</p>
+import Link from "next/link";
 
-        <ul className="space-y-3 text-zinc-300">
-          <li className="rounded-2xl border border-zinc-800/60 p-4">• Project A (placeholder)</li>
-          <li className="rounded-2xl border border-zinc-800/60 p-4">• Project B (placeholder)</li>
-          <li className="rounded-2xl border border-zinc-800/60 p-4">• Project C (placeholder)</li>
-        </ul>
+const ITEMS = [
+  { slug: "experience-1", title: "Experience #1" },
+  { slug: "experience-2", title: "Experience #2" },
+  { slug: "experience-3", title: "Experience #3" },
+  { slug: "experience-4", title: "Experience #4" },
+  { slug: "experience-5", title: "Experience #5" },
+  { slug: "experience-6", title: "Experience #6" },
+  { slug: "experience-7", title: "Experience #7" },
+];
+
+export default function PortfolioIndex() {
+  return (
+    <main className="min-h-screen bg-black text-zinc-100 px-6 py-14">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <h1 className="text-4xl font-semibold">Portfolio</h1>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {ITEMS.map((it) => (
+            <Link
+              key={it.slug}
+              href={`/portfolio/${it.slug}`}
+              className="rounded-2xl border border-zinc-700/60 p-5 hover:bg-zinc-100 hover:text-black transition block"
+            >
+              <div className="text-lg font-medium">{it.title}</div>
+            </Link>
+          ))}
+        </div>
       </div>
     </main>
   );
