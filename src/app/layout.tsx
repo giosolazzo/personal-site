@@ -14,21 +14,23 @@ const isProd = process.env.NODE_ENV === "production";
 const site = isProd ? "https://giuseppesolazzo.com" : "http://localhost:3000";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site),
+  metadataBase: new URL(
+    process.env.NODE_ENV === "production"
+      ? "https://giuseppesolazzo.com"
+      : "http://localhost:3000"
+  ),
   title: { default: "Giuseppe Solazzo", template: "%s · Giuseppe Solazzo" },
   description: "Landing to Midsummer, Eon, and Portfolio.",
   openGraph: {
     type: "website",
-    url: site,
+    url: "https://giuseppesolazzo.com",
     title: "Giuseppe Solazzo",
     description: "Landing to Midsummer, Eon, and Portfolio.",
     siteName: "Giuseppe Solazzo",
   },
-  twitter: {
-    card: "summary_large_image",
-    // site: "@yourhandle", // optional
-  },
+  twitter: { card: "summary_large_image" },
 };
+
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
