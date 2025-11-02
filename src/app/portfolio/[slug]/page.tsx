@@ -181,11 +181,23 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <main className="min-h-screen bg-[--color-ivory] text-zinc-900 px-6 py-10">
-      <div className="mx-auto max-w-6xl grid md:grid-cols-[260px_1fr] gap-10">
+      <div className="mx-auto max-w-6xl grid md:grid-cols-[280px_1fr] gap-10">
         {/* side panel */}
-        <aside className="text-sm space-y-3">
+        <aside className="text-sm space-y-4">
+          {/* Image holder (uses background-image; if missing, you just see the placeholder) */}
+          <div
+            className="aspect-[4/3] w-full rounded-xl border border-zinc-300/60 overflow-hidden bg-white/60"
+            style={{
+              backgroundImage: `url(/images/portfolio/${i.slug}.webp)`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            aria-label="experience image"
+          />
           {i.side.map((line, n) => (
-            <div key={n} className={line.startsWith("—") ? "opacity-60" : ""}>{line}</div>
+            <div key={n} className={line.startsWith("—") ? "opacity-60" : ""}>
+              {line}
+            </div>
           ))}
         </aside>
 

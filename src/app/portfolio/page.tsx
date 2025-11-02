@@ -1,32 +1,38 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
+const Thumb = dynamic(() => import("@/components/Thumb"), { ssr: false });
 
 const ITEMS = [
-  { slug: "sodexo", title: "one of the first, one of the best - washing dishes at sodexo" },
-  { slug: "essens", title: "multi-level marketing deep dive at essens europe" },
-  { slug: "citya", title: "demand-responsive-transportation analysis at citya mobility" },
-  { slug: "founding-intern", title: "founding intern - providing access to experiences outside academia" },
-  { slug: "findsparrow", title: "development and market at findsparrow - supporting students by supporting communities" },
-  { slug: "kos-coo", title: "putting kos ai on a map in silicon valley - executive leadership at a healthtech startup" },
-  { slug: "kos-ops", title: "pit-stop at Kos before leaving US (People & Operations)" },
-  { slug: "whats-next", title: "What’s next…" },
+  { slug: "experience-1", title: "one of the first, one of the best - washing dishes at sodexo" },
+  { slug: "experience-2", title: "multi-level marketing deep dive at essens europe" },
+  { slug: "experience-3", title: "demand-responsive-transportation analysis at citya mobility" },
+  { slug: "experience-4", title: "founding intern - providing access to experiences outside academia" },
+  { slug: "experience-5", title: "development and market at findsparrow - supporting students by supporting communities" },
+  { slug: "experience-6", title: "putting kos ai on a map in silicon valley - executive leadership at a healthtech startup" },
+  { slug: "experience-7", title: "pit-stop at Kos before leaving US" },
+  { slug: "experience-8", title: "what’s next..." },
 ];
 
 export default function PortfolioIndex() {
   return (
-    <main className="min-h-screen bg-[--color-ivory] text-zinc-900 px-6 py-14">
+    <main className="min-h-screen bg-black text-zinc-100 px-6 py-14">
       <div className="max-w-5xl mx-auto space-y-10">
-        <h1 className="text-center text-4xl sm:text-5xl font-semibold">
-          looking back│moving forward
-        </h1>
+        <h1 className="text-center text-5xl font-semibold">looking back│moving forward</h1>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {ITEMS.map((it) => (
             <Link
               key={it.slug}
               href={`/portfolio/${it.slug}`}
-              className="rounded-2xl border border-zinc-300/70 p-5 hover:bg-black hover:text-white transition block"
+              className="group block"
             >
-              <div className="text-lg font-medium">{it.title}</div>
+              <Thumb src={`/images/portfolio/${it.slug}.webp`} alt={it.title} />
+              <div className="mt-3 text-lg leading-snug group-hover:opacity-90">{it.title}</div>
+              <div className="mt-3">
+                <span className="inline-block rounded-full border border-zinc-700 px-4 py-2 text-sm group-hover:bg-zinc-100 group-hover:text-black transition">
+                  read on
+                </span>
+              </div>
             </Link>
           ))}
         </div>

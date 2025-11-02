@@ -1,5 +1,21 @@
+// src/app/page.tsx
 import Link from "next/link";
 import Image from "next/image";
+
+// Local lightweight image holder (no dynamic import needed)
+function Thumb({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="aspect-square w-24 rounded-lg overflow-hidden bg-zinc-900/50 border border-zinc-800/70">
+      <Image
+        src={src}
+        alt={alt}
+        width={96}
+        height={96}
+        className="w-full h-full object-cover"
+      />
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -40,7 +56,9 @@ export default function Home() {
             <div className="flex items-center justify-between gap-6">
               <div>
                 <h2 className="text-lg font-medium">Eon</h2>
-                <p className="mt-1 text-sm text-zinc-400">A reflective project in progress.</p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  A reflective project in progress.
+                </p>
               </div>
               <Link
                 href="/eon"
@@ -57,24 +75,20 @@ export default function Home() {
           {/* Portfolio */}
           <div className="rounded-2xl border border-zinc-800/70 p-5">
             <div className="flex items-center justify-between gap-6">
-              <div className="flex items-center gap-3">
-                <div className="size-10 rounded-lg bg-zinc-900 border border-zinc-800 overflow-hidden">
-                  <Image
-                    src="/gs-logo.webp"
-                    alt="GS"
-                    width={40}
-                    height={40}
-                    className="h-full w-full object-contain"
-                  />
-                </div>
+              <div className="flex items-center gap-4">
+                {/* image holder */}
+                <Thumb src="/images/portfolio/home-card.webp" alt="portfolio" />
                 <div>
                   <h2 className="text-lg font-medium">Portfolio</h2>
-                  <p className="mt-1 text-sm text-zinc-400">A collection of past work.</p>
+                  <p className="mt-1 text-sm text-zinc-400">
+                    A collection of past work.
+                  </p>
                 </div>
               </div>
+
               <Link
                 href="/portfolio"
-                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm hover:bg-zinc-100 hover:text-black transition"
+                className="rounded-full border border-zinc-700 px-5 py-2 text-sm hover:bg-zinc-100 hover:text-black transition"
               >
                 browse
               </Link>
