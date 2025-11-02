@@ -1,21 +1,21 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-zinc-100">
       {/* HERO */}
       <section className="px-6 pt-20 pb-8 text-center">
-        <h1 className="mx-auto max-w-3xl font-semibold tracking-tight
-                       text-4xl sm:text-5xl">
+        <h1
+          className="mx-auto max-w-3xl font-display tracking-tight
+                     text-4xl sm:text-5xl"
+        >
           Writing a story that only makes sense in reverse.
         </h1>
 
-        {/* spacer for the lil dot / icon spot if you add later */}
-        <div className="mt-4" />
-
-        <p className="mt-6 text-sm uppercase tracking-[0.2em] text-zinc-400">
-          The menu
-        </p>
+        <div className="mt-6 text-sm uppercase tracking-[0.2em] text-zinc-400">
+          THE MENU
+        </div>
       </section>
 
       {/* MENU CARDS */}
@@ -33,7 +33,7 @@ export default function Home() {
 
               <a
                 href="https://midsummerlab.com/midsummer"
-                className="rounded-full border border-zinc-700 px-5 py-2 text-sm 
+                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm
                            hover:bg-zinc-100 hover:text-black transition"
               >
                 start
@@ -53,7 +53,7 @@ export default function Home() {
 
               <Link
                 href="/eon"
-                className="rounded-full border border-zinc-700 px-5 py-2 text-sm 
+                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm
                            hover:bg-zinc-100 hover:text-black transition"
               >
                 pending
@@ -68,18 +68,24 @@ export default function Home() {
           <div className="rounded-2xl border border-zinc-800/70 p-5">
             <div className="flex items-center justify-between gap-6">
               <div className="flex items-center gap-3">
-                <div className="size-10 rounded-lg bg-zinc-900 border border-zinc-800" />
+                {/* visible logo bubble */}
+                <div className="relative h-10 w-10 rounded-lg bg-zinc-900 border border-zinc-800 overflow-hidden">
+                  <Image
+                    src="/logo-square.png"   /* add a 1:1 logo here; falls back to empty box if missing */
+                    alt=""
+                    fill
+                    className="object-contain p-1.5"
+                  />
+                </div>
                 <div>
                   <h2 className="text-lg font-medium">Portfolio</h2>
-                  <p className="mt-1 text-sm text-zinc-400">
-                    A collection of past work.
-                  </p>
+                  <p className="mt-1 text-sm text-zinc-400">A collection of past work.</p>
                 </div>
               </div>
 
               <Link
                 href="/portfolio"
-                className="rounded-full border border-zinc-700 px-5 py-2 text-sm 
+                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm
                            hover:bg-zinc-100 hover:text-black transition"
               >
                 browse
@@ -88,8 +94,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* footer strip stays black on this page; your global footer already prints the © line */}
     </main>
   );
 }
