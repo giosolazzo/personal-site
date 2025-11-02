@@ -1,21 +1,5 @@
-// src/app/page.tsx
 import Link from "next/link";
-import Image from "next/image";
-
-// Local lightweight image holder (no dynamic import needed)
-function Thumb({ src, alt }: { src: string; alt: string }) {
-  return (
-    <div className="aspect-square w-24 rounded-lg overflow-hidden bg-zinc-900/50 border border-zinc-800/70">
-      <Image
-        src={src}
-        alt={alt}
-        width={96}
-        height={96}
-        className="w-full h-full object-cover"
-      />
-    </div>
-  );
-}
+import Thumb from "@/components/Thumb";
 
 export default function Home() {
   return (
@@ -77,7 +61,11 @@ export default function Home() {
             <div className="flex items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 {/* image holder */}
-                <Thumb src="/images/portfolio/home-card.webp" alt="portfolio" />
+                <Thumb
+                  src="/images/portfolio/home-card.webp"
+                  alt="portfolio"
+                  className="w-14"
+                />
                 <div>
                   <h2 className="text-lg font-medium">Portfolio</h2>
                   <p className="mt-1 text-sm text-zinc-400">

@@ -1,19 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
 
-export default function Thumb({ src, alt = "" }: { src: string; alt?: string }) {
-  const [ok, setOk] = useState(true);
+export default function Thumb({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
   return (
-    <div className="aspect-[4/3] w-full rounded-xl border border-zinc-800 overflow-hidden bg-zinc-900/40">
-      {ok ? (
-        <img
-          src={src}
-          alt={alt}
-          className="w-full h-full object-cover"
-          onError={() => setOk(false)}
-        />
-      ) : null}
+    <div
+      className={
+        "relative aspect-square rounded-lg overflow-hidden bg-zinc-900/60 border border-zinc-800 " +
+        className
+      }
+    >
+      {/* If the image isn’t uploaded yet, this still renders a nice holder */}
+      <Image src={src} alt={alt} fill sizes="96px" className="object-cover" />
     </div>
   );
 }
