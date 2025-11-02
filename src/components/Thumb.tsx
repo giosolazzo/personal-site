@@ -1,39 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import * as React from "react";
 
 type Props = {
   src: string;
   alt: string;
+  /** square size in px (default 56) */
+  size?: number;
   className?: string;
 };
 
-export default function Thumb({ src, alt, className }: Props) {
-  const [fallback, setFallback] = React.useState(false);
-
+export default function Thumb({ src, alt, size = 56, className = "" }: Props) {
   return (
     <div
-      className={
-        "aspect-square w-full rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900 " +
-        (className ?? "")
-      }
+      className={`relative overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 ${className}`}
+      style={{ width: size, height: size }}
     >
-      {!fallback ? (
-        <Image
-          src={src}
-          alt={alt}
-          width={160}
-          height={160}
-          className="h-full w-full object-cover"
-          onError={() => setFallback(true)}
-          priority
-        />
-      ) : (
-        <div className="h-full w-full grid place-items-center text-xs text-zinc-400">
-          image
-        </div>
-      )}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={`${size}px`}
+        className="object-cover"
+        priority
+      />
     </div>
   );
 }
