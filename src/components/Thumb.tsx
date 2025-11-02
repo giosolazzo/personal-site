@@ -1,25 +1,39 @@
 "use client";
 
 import Image from "next/image";
+import * as React from "react";
 
-export default function Thumb({
-  src,
-  alt,
-  className = "",
-}: {
+type Props = {
   src: string;
   alt: string;
   className?: string;
-}) {
+};
+
+export default function Thumb({ src, alt, className }: Props) {
+  const [fallback, setFallback] = React.useState(false);
+
   return (
     <div
       className={
-        "relative aspect-square rounded-lg overflow-hidden bg-zinc-900/60 border border-zinc-800 " +
-        className
+        "aspect-square w-full rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900 " +
+        (className ?? "")
       }
     >
-      {/* If the image isn’t uploaded yet, this still renders a nice holder */}
-      <Image src={src} alt={alt} fill sizes="96px" className="object-cover" />
+      {!fallback ? (
+        <Image
+          src={src}
+          alt={alt}
+          width={160}
+          height={160}
+          className="h-full w-full object-cover"
+          onError={() => setFallback(true)}
+          priority
+        />
+      ) : (
+        <div className="h-full w-full grid place-items-center text-xs text-zinc-400">
+          image
+        </div>
+      )}
     </div>
   );
 }
