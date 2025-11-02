@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 type Props = {
   src: string;
   alt: string;
@@ -13,17 +11,11 @@ type Props = {
 export default function Thumb({ src, alt, size = 56, className = "" }: Props) {
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 ${className}`}
+      className={`overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 ${className}`}
       style={{ width: size, height: size }}
     >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes={`${size}px`}
-        className="object-cover"
-        priority
-      />
+      {/* plain <img> to avoid any optimizer/domain/path issues */}
+      <img src={src} alt={alt} className="w-full h-full object-cover block" />
     </div>
   );
 }

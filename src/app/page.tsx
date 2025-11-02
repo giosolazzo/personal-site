@@ -5,13 +5,23 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-zinc-100">
       {/* HERO */}
-      <section className="px-6 pt-16 pb-6 text-center">
+      <section className="px-6 pt-16 pb-4 text-center">
         <h1 className="mx-auto max-w-3xl font-semibold tracking-tight text-[34px] sm:text-5xl">
           Writing a story that only makes sense in reverse.
         </h1>
 
-        {/* spacer for the lil dot / icon spot if you add later */}
-        <div className="mt-4" />
+        {/* LinkedIn bubble under the title */}
+        <div className="mt-5 flex justify-center">
+          <a
+            href="https://www.linkedin.com/in/giuseppe-solazzo/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-full border border-zinc-700 px-4 py-2 text-sm text-zinc-200 hover:bg-zinc-100 hover:text-black transition"
+            aria-label="Giuseppe on LinkedIn"
+          >
+            in
+          </a>
+        </div>
 
         <p className="mt-6 text-xs sm:text-sm uppercase tracking-[0.22em] text-zinc-400">
           THE MENU
@@ -19,7 +29,7 @@ export default function Home() {
       </section>
 
       {/* MENU CARDS */}
-      <section className="px-6 pb-12">
+      <section className="px-6 pb-4">
         <div className="mx-auto max-w-3xl space-y-4">
           {/* Midsummer */}
           <div className="rounded-2xl border border-zinc-800/70 p-5">
@@ -58,7 +68,7 @@ export default function Home() {
           </div>
 
           {/* divider */}
-          <div className="py-6 text-center text-zinc-600">────────</div>
+          <div className="py-5 text-center text-zinc-600">────────</div>
 
           {/* Portfolio */}
           <div className="rounded-2xl border border-zinc-800/70 p-5">
@@ -76,17 +86,6 @@ export default function Home() {
                   <p className="mt-1 text-sm text-zinc-400">
                     A collection of past work.
                   </p>
-
-                  {/* LinkedIn bubble */}
-                  <a
-                    href="https://www.linkedin.com/in/giuseppe-solazzo/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center justify-center rounded-full border border-zinc-700 px-3 py-1 text-xs text-zinc-300 hover:bg-zinc-100 hover:text-black transition"
-                    aria-label="Giuseppe on LinkedIn"
-                  >
-                    in
-                  </a>
                 </div>
               </div>
 
