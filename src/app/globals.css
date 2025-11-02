@@ -1,36 +1,30 @@
 @import "tailwindcss";
 
-/* Design tokens (from your Squarespace styles) */
-@theme inline {
+/* ── Design tokens (no @theme; VS Code stays quiet) ─────────────── */
+:root {
   /* palette */
-  --color-ivory: #e6e6e1;        /* Light 1 background */
-  --color-ink: #0a0a0a;          /* near-black */
-  --color-navy: #253149;         /* Bright 2 (deep slate / navy) */
-  --color-charcoal: #262424;     /* Dark 1 */
-  --color-graphite: #1f1e1e;     /* Dark 2 */
+  --color-ivory: #e6e6e1;
+  --color-ink: #0a0a0a;
+  --color-navy: #253149;
+  --color-charcoal: #262424;
+  --color-graphite: #1f1e1e;
 
   /* semantic */
   --color-bg: var(--color-ivory);
   --color-fg: #111111;
 
-  /* type (Manrope for headings, Poppins for text/buttons) */
-  --font-heading: var(--font-geist-sans);   /* swap to Manrope when you add it */
-  --font-body: var(--font-geist-sans);      /* swap to Poppins when you add it */
+  /* type */
+  --font-heading: var(--font-display, var(--font-geist-sans));
+  --font-body: var(--font-geist-sans);
 
   /* radii */
-  --radius-xl: 9999px;  /* pill buttons */
+  --radius-xl: 9999px;
   --radius-lg: 24px;
 }
 
-/* dark mode base (only for the black hero areas) */
-:root.dark {
-  --color-bg: #000000;
-  --color-fg: #ededed;
-}
+:root.dark { --color-bg: #000; --color-fg: #ededed; }
 
-html, body {
-  height: 100%;
-}
+html, body { height: 100%; }
 
 body {
   background: var(--color-bg);
@@ -38,21 +32,7 @@ body {
   font-family: var(--font-body);
 }
 
-/* utilities that mirror your look */
+/* utilities */
+.font-display { font-family: var(--font-display), var(--font-geist-sans), system-ui, sans-serif; }
 .rounded-pill { border-radius: var(--radius-xl); }
 .shadow-soft { box-shadow: 0 8px 30px rgba(0,0,0,.12); }
-
-/* ---- Display font hook (Momo Trust Display) ---- */
-@font-face {
-  font-family: "Momo Trust Display";
-  src: url("/fonts/momo-trust-display.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* fall back to Geist if file isn't present yet */
-:root { --font-display: "Momo Trust Display", var(--font-geist-sans), system-ui, sans-serif; }
-
-/* utility to apply the display font anywhere */
-.font-display { font-family: var(--font-display); }
