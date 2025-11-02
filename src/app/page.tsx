@@ -46,7 +46,7 @@ export default function Home() {
               </div>
               <Link
                 href="/eon"
-                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm hover:bg-zinc-100 hover:text-black transition"
+                className="rounded-full px-6 py-2.5 text-sm border border-zinc-700 bg-white text-black hover:bg-black hover:text-white transition"
               >
                 pending
               </Link>
@@ -61,22 +61,18 @@ export default function Home() {
             <div className="flex items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 {/* image holder */}
-                <Thumb
-                  src="/images/portfolio/home-card.webp"
-                  alt="portfolio"
-                  className="w-14"
-                />
+                <div className="w-12 sm:w-16">
+                  <Thumb src="/images/portfolio/home-card.webp" alt="portfolio" />
+                </div>
                 <div>
                   <h2 className="text-lg font-medium">Portfolio</h2>
-                  <p className="mt-1 text-sm text-zinc-400">
-                    A collection of past work.
-                  </p>
+                  <p className="mt-1 text-sm text-zinc-400">A collection of past work.</p>
                 </div>
               </div>
 
               <Link
                 href="/portfolio"
-                className="rounded-full border border-zinc-700 px-5 py-2 text-sm hover:bg-zinc-100 hover:text-black transition"
+                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm hover:bg-zinc-100 hover:text-black transition"
               >
                 browse
               </Link>
