@@ -5,14 +5,12 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-zinc-100">
       {/* HERO */}
-      <section className="px-6 pt-20 pb-8 text-center">
-        <h1 className="mx-auto max-w-4xl font-display tracking-tight text-[clamp(28px,6vw,48px)]">
+      <section className="px-6 pt-16 pb-6 text-center">
+        <h1 className="mx-auto max-w-3xl font-semibold tracking-tight text-[34px] sm:text-5xl">
           Writing a story that only makes sense in reverse.
         </h1>
-
-        <div className="mt-3" />
-        <p className="mt-5 text-xs sm:text-sm uppercase tracking-[0.2em] text-zinc-400">
-          The menu
+        <p className="mt-6 text-xs sm:text-sm uppercase tracking-[0.22em] text-zinc-400">
+          THE MENU
         </p>
       </section>
 
@@ -54,22 +52,19 @@ export default function Home() {
           </div>
 
           {/* divider */}
-          <div className="py-6 text-center">
-            <span className="inline-block h-px w-24 bg-zinc-700/60" />
-          </div>
+          <div className="py-6 text-center text-zinc-600">────────</div>
 
           {/* Portfolio */}
           <div className="rounded-2xl border border-zinc-800/70 p-5">
             <div className="flex items-center justify-between gap-6">
               <div className="flex items-center gap-3">
-                <div className="size-10 rounded-lg bg-zinc-900 border border-zinc-800 overflow-hidden grid place-items-center">
+                <div className="size-10 rounded-lg bg-zinc-900 border border-zinc-800 overflow-hidden">
                   <Image
-                    src="/gs-logo.webp"        // rename your image to this, or change the path
-                    alt=""
+                    src="/gs-logo.webp"
+                    alt="GS"
                     width={40}
                     height={40}
-                    className="w-full h-full object-contain"
-                    priority
+                    className="h-full w-full object-contain"
                   />
                 </div>
                 <div>

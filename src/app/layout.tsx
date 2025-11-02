@@ -9,16 +9,15 @@ import SiteFooter from "@/components/SiteFooter";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-const isProd = process.env.NODE_ENV === "production";
-const site = isProd ? "https://giuseppesolazzo.com" : "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(site),
+  metadataBase: new URL(process.env.NODE_ENV === "production"
+    ? "https://giuseppesolazzo.com"
+    : "http://localhost:3000"),
   title: { default: "Giuseppe Solazzo", template: "%s · Giuseppe Solazzo" },
   description: "Landing to Midsummer, Eon, and Portfolio.",
   openGraph: {
     type: "website",
-    url: site,
+    url: "https://giuseppesolazzo.com",
     title: "Giuseppe Solazzo",
     description: "Landing to Midsummer, Eon, and Portfolio.",
     siteName: "Giuseppe Solazzo",
@@ -26,12 +25,12 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SiteHeader />
-        <main>{children}</main>
+        {children}
         <SiteFooter />
         <Analytics />
         <SpeedInsights />
