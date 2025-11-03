@@ -39,3 +39,11 @@ body {
 /* utilities */
 .rounded-pill { border-radius: var(--radius-xl); }
 .shadow-soft { box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+
+/* ---- Portfolio page chrome overrides ---- */
+body.portfolio-skin .site-header,
+body.portfolio-skin .site-footer {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  backdrop-filter: none !important;
+}
