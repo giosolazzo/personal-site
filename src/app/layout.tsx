@@ -10,9 +10,9 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NODE_ENV === "production" ? "https://giuseppesolazzo.com" : "http://localhost:3000"
-  ),
+  metadataBase: new URL(process.env.NODE_ENV === "production"
+    ? "https://giuseppesolazzo.com"
+    : "http://localhost:3000"),
   title: { default: "Giuseppe Solazzo", template: "%s · Giuseppe Solazzo" },
   description: "Landing to Midsummer, Eon, and Portfolio.",
   openGraph: {
@@ -28,14 +28,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      {/* 3-row shell so footer sits at bottom and content gets breathing room */}
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100 min-h-screen grid grid-rows-[auto,1fr,auto]`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SiteHeader />
-        <main className="pb-6 sm:pb-10">{children}</main>
+        {children}
         <SiteFooter />
-
         <Analytics />
         <SpeedInsights />
       </body>
