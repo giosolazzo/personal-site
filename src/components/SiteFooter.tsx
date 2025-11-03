@@ -2,18 +2,13 @@ import Link from "next/link";
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-black text-zinc-300 border-t border-zinc-800">
-      <div className="mx-auto max-w-5xl px-4 h-16 flex items-center justify-between">
+    <footer className="border-t border-white/10 bg-black text-zinc-400">
+      {/* Match header width for alignment */}
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 h-14 flex items-center justify-between">
         <span className="text-sm">© 2025 Giuseppe Solazzo</span>
-
         <nav className="flex items-center gap-6 text-sm">
           <Link href="/privacy" className="hover:text-white">Privacy</Link>
-          <a
-            href="https://midsummerlab.com/midsummer"
-            className="hover:text-white"
-          >
-            Midsummer
-          </a>
+          <Link href="/midsummer" className="hover:text-white">Midsummer</Link>
         </nav>
       </div>
     </footer>

@@ -72,9 +72,8 @@ export default function Home() {
           <div className="rounded-2xl border border-zinc-800/70 p-4">
             <div className="flex items-center justify-between gap-5">
               <div className="flex items-center gap-4">
-                {/* image holder (reads /public/images/portfolio/home-card.webp) */}
+                {/* image holder (reads /public/images/portfolio/...) */}
                 <Thumb src="/images/portfolio/gio-logo.png" alt="Giuseppe logo" size={56} />
-
                 <div>
                   <h2 className="text-base sm:text-lg font-medium">Portfolio</h2>
                   <p className="mt-1 text-sm text-zinc-400">A collection of past work.</p>
@@ -91,8 +90,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* NOTE: Keep footer tight by using a small top margin in the Footer component, e.g. <SiteFooter className="mt-4 sm:mt-6" /> */}
     </main>
   );
 }
