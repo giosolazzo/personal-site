@@ -21,6 +21,12 @@
   --radius-xl: 9999px;
   --radius-lg: 24px;
 }
+:root {
+  --hdr: 56px;
+  --ftr: 56px;
+}
+
+/* Keep your existing styles below */
 
 /* dark hero option if you ever need it */
 :root.dark {

@@ -30,11 +30,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      {/* define header/footer heights as global CSS vars */}
-      <body
-        style={{ ["--hdr" as any]: "56px", ["--ftr" as any]: "56px" }}
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100`}>
         <SiteHeader />
         {children}
         <SiteFooter />
