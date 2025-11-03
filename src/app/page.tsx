@@ -3,15 +3,15 @@ import Thumb from "@/components/Thumb";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-zinc-100">
+    <main className="bg-black text-zinc-100">
       {/* HERO */}
-      <section className="px-6 pt-16 pb-4 text-center">
-        <h1 className="mx-auto max-w-3xl font-semibold tracking-tight text-[34px] sm:text-5xl">
+      <section className="px-6 pt-12 pb-2 text-center">
+        <h1 className="mx-auto max-w-3xl font-semibold tracking-tight text-[32px] sm:text-5xl leading-tight">
           Writing a story that only makes sense in reverse.
         </h1>
 
         {/* LinkedIn bubble under the title */}
-        <div className="mt-5 flex justify-center">
+        <div className="mt-4 flex justify-center">
           <a
             href="https://www.linkedin.com/in/giuseppe-solazzo/"
             target="_blank"
@@ -23,26 +23,26 @@ export default function Home() {
           </a>
         </div>
 
-        <p className="mt-6 text-xs sm:text-sm uppercase tracking-[0.22em] text-zinc-400">
+        <p className="mt-4 text-xs sm:text-sm uppercase tracking-[0.22em] text-zinc-400">
           THE MENU
         </p>
       </section>
 
       {/* MENU CARDS */}
-      <section className="px-6 pb-4">
-        <div className="mx-auto max-w-3xl space-y-4">
+      <section className="px-6 pb-1">
+        <div className="mx-auto max-w-3xl space-y-3">
           {/* Midsummer */}
-          <div className="rounded-2xl border border-zinc-800/70 p-5">
-            <div className="flex items-center justify-between gap-6">
+          <div className="rounded-2xl border border-zinc-800/70 p-4">
+            <div className="flex items-center justify-between gap-5">
               <div>
-                <h2 className="text-lg font-medium">Midsummer</h2>
+                <h2 className="text-base sm:text-lg font-medium">Midsummer</h2>
                 <p className="mt-1 text-sm text-zinc-400">
                   Spoken explorations on breaking perfection.
                 </p>
               </div>
               <a
                 href="https://midsummerlab.com/midsummer"
-                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm hover:bg-zinc-100 hover:text-black transition"
+                className="rounded-full border border-zinc-700 px-5 py-2 text-sm hover:bg-zinc-100 hover:text-black transition"
               >
                 start
               </a>
@@ -50,17 +50,15 @@ export default function Home() {
           </div>
 
           {/* Eon */}
-          <div className="rounded-2xl border border-zinc-800/70 p-5">
-            <div className="flex items-center justify-between gap-6">
+          <div className="rounded-2xl border border-zinc-800/70 p-4">
+            <div className="flex items-center justify-between gap-5">
               <div>
-                <h2 className="text-lg font-medium">Eon</h2>
-                <p className="mt-1 text-sm text-zinc-400">
-                  A reflective project in progress.
-                </p>
+                <h2 className="text-base sm:text-lg font-medium">Eon</h2>
+                <p className="mt-1 text-sm text-zinc-400">A reflective project in progress.</p>
               </div>
               <Link
                 href="/eon"
-                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm bg-white text-black hover:bg-black hover:text-white transition"
+                className="rounded-full border border-zinc-700 px-5 py-2 text-sm bg-white text-black hover:bg-black hover:text-white transition"
               >
                 pending
               </Link>
@@ -68,30 +66,24 @@ export default function Home() {
           </div>
 
           {/* divider */}
-          <div className="py-5 text-center text-zinc-600">────────</div>
+          <hr className="my-2 border-zinc-800/70" />
 
           {/* Portfolio */}
-          <div className="rounded-2xl border border-zinc-800/70 p-5">
-            <div className="flex items-center justify-between gap-6">
+          <div className="rounded-2xl border border-zinc-800/70 p-4">
+            <div className="flex items-center justify-between gap-5">
               <div className="flex items-center gap-4">
                 {/* image holder (reads /public/images/portfolio/home-card.webp) */}
-                <Thumb
-                  src="/images/portfolio/home-card.webp"
-                  alt="portfolio"
-                  size={56}
-                />
+                <Thumb src="/images/portfolio/gio-logo.png" alt="Giuseppe logo" size={56} />
 
                 <div>
-                  <h2 className="text-lg font-medium">Portfolio</h2>
-                  <p className="mt-1 text-sm text-zinc-400">
-                    A collection of past work.
-                  </p>
+                  <h2 className="text-base sm:text-lg font-medium">Portfolio</h2>
+                  <p className="mt-1 text-sm text-zinc-400">A collection of past work.</p>
                 </div>
               </div>
 
               <Link
                 href="/portfolio"
-                className="rounded-full border border-zinc-700 px-6 py-2.5 text-sm hover:bg-zinc-100 hover:text-black transition"
+                className="rounded-full border border-zinc-700 px-5 py-2 text-sm hover:bg-zinc-100 hover:text-black transition"
               >
                 browse
               </Link>
@@ -99,6 +91,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* NOTE: Keep footer tight by using a small top margin in the Footer component, e.g. <SiteFooter className="mt-4 sm:mt-6" /> */}
     </main>
   );
 }
