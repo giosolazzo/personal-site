@@ -24,22 +24,27 @@ export default function Experience1() {
         {/* Main Content */}
         <section className="sm:col-span-3 space-y-6">
           <h1 className="text-2xl font-semibold">
-            one of the first, one of the best – washing dishes at sodexo
+            one of the first, one of the best - washing dishes at sodexo
           </h1>
+
           <div className="space-y-4 text-zinc-300 leading-relaxed">
             <p>
-              yes, sounds like <span className="underline">jensen huang</span>'s story – he’s lucky i didn’t start in tech
+              yes, sounds like <span className="underline">jensen huang</span>
+              &apos;s story - he&apos;s lucky i didn&apos;t start in tech
             </p>
+
             <p>
-              dishwasher was indeed one of my first roles, and it's where my ambition/desire
-              for great experiences, for great opportunities, was etched in me – ironically enough
+              dishwasher was indeed one of my first roles, and it&apos;s where my
+              ambition/desire for great experiences, for great opportunities, was
+              etched in me - ironically enough
             </p>
+
             <p>
-              where my parents’ words “do you think we print money?” became much clearer
+              where my parents&apos; words &quot;do you think we print money?&quot; became
+              much clearer
             </p>
-            <p>
-              this humbling experience brought hunger in me… so what did i do next?
-            </p>
+
+            <p>this humbling experience brought hunger in me... so what did i do next?</p>
           </div>
 
           {/* Nav Buttons */}
@@ -50,13 +55,14 @@ export default function Experience1() {
             >
               ← back to all
             </Link>
+
             <div className="flex gap-6">
-              <span className="text-zinc-500">‹ dishwashing run</span>
+              <span className="text-zinc-500">&lt; dishwashing run</span>
               <Link
                 href="/portfolio/experience-2"
                 className="underline text-zinc-400 hover:text-white transition"
               >
-                m-l-m deep dive →
+                m-l-m deep dive -&gt;
               </Link>
             </div>
           </div>
