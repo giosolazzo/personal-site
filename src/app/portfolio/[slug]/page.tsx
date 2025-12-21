@@ -129,7 +129,8 @@ const ITEMS: Item[] = [
   {
     slug: "findsparrow",
     title: "findsparrow",
-    headline: "Development and Market at FindSparrow - Supporting Students by Supporting Communities",
+    headline:
+      "Development and Market at FindSparrow - Supporting Students by Supporting Communities",
     side: [
       "FindSparrow Inc.",
       "Palo Alto, California",
@@ -204,7 +205,7 @@ const ITEMS: Item[] = [
   {
     slug: "kos-2",
     title: "pit-stop at kos",
-    headline: "Pit-Stop at Kos, Once Again - People Ops During Transition",
+    headline: "Kos, Once Again - People Ops During Transition",
     side: [
       "Kos Inc.",
       "Palo Alto, California",
@@ -215,17 +216,23 @@ const ITEMS: Item[] = [
       "April 2025 - June 2025",
     ],
     main: [
-      "I stepped back in during a leadership transition - not to “join again”, but to stabilize the people side and keep momentum intact.",
-      "This phase was less about spotlight and more about reliability: communication, structure, clean handoffs, and making sure the team stayed focused while leadership shifted.",
+      "After my leave, I was asked to step back in during a leadership transition - not necessarily to “join again” at first, but to make a few key events happen because of the amount of operational information I had carried before.",
+      "Eventually, we agreed on my return later in April to stabilize the people side and keep momentum.",
+      "",
+      "This phase was less about spotlight and more about reliability: communication, structure, clean handoffs, and making sure responsibilities were covered.",
+      "",
       "I was heading back to Europe after - so the job was simple: leave things better than I found them, and make the next chapter easier for whoever takes the wheel.",
       "",
       "The echo:",
       "• Kept internal operations steady during transition: clarity in roles, priorities, and expectations",
-      "• Supported team continuity through coordination, scheduling, and execution across day-to-day moving parts",
-      "• Drove clean handoffs: documentation, ownership transfer, and reducing “single points of failure”",
-      "• Helped leadership regain bandwidth by absorbing the unglamorous operational load that quietly breaks teams",
+      "• Supported the team through coordination and execution across day-to-day moving parts",
+      "• Clean handoffs: documentation, ownership transfer",
       "",
-      "Back to Europe - next chapter ->",
+      "My STEM OPT extension was in debate, but returning to Europe was a choice I made before rejoining, and it felt like an exhale I didn't see any other way.",
+      "",
+      "Bought a backpack and didn't see a workplace environment until a few months later.",
+      "",
+      "After the travels; next chapter ->",
     ],
     image: "/images/portfolio/experiences/kos/logo.png",
   },
@@ -241,6 +248,141 @@ const order = ITEMS.map((i) => i.slug);
  */
 function normalizeTypography(s: string) {
   return s.replace(/[—–]/g, "-").replace(/→/g, "->");
+}
+
+const LOWERCASE_WORDS = new Set([
+  "a",
+  "an",
+  "the",
+  "and",
+  "but",
+  "or",
+  "nor",
+  "for",
+  "so",
+  "yet",
+  "as",
+  "at",
+  "by",
+  "in",
+  "of",
+  "on",
+  "per",
+  "to",
+  "up",
+  "via",
+  "with",
+  "from",
+]);
+
+/**
+ * Title casing for labels + buttons:
+ * - Every word starts with a capital letter
+ * - Small connecting words stay lowercase (at, to, of...) unless first word
+ * - Keeps shortcut-y tokens (e.g. m-l-m) as "M-l-m"
+ * - Forces AI to "AI"
+ * - Special case: Intern slug -> "INTERN"
+ */
+function titleCaseLabel(s: string, slugForOverride?: string) {
+  if (slugForOverride === "intern") return "INTERN";
+
+  const raw = normalizeTypography(s ?? "").trim();
+  if (!raw) return "";
+
+  const words = raw.split(/\s+/g);
+
+  return words
+    .map((w, idx) => {
+      const lower = w.toLowerCase();
+
+      if (w === "->") return "->";
+      if (lower === "ai") return "AI";
+      if (lower === "mlm") return "MLM";
+
+      if (idx !== 0 && LOWERCASE_WORDS.has(lower)) return lower;
+
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    })
+    .join(" ");
+}
+
+// --- Link mapping for your side-box domains ---
+const LINK_MAP: Record<string, string> = {
+  "essensworld.com": "https://www.essensworld.com/",
+  "citya.io": "https://www.citya.io/",
+  "findsparrow.com": "https://www.findsparrow.com/",
+  "kos-ai.com": "https://www.kos-ai.com/",
+};
+
+const PITCHBOOK_URL = "https://pitchbook.com/profiles/company/507126-07";
+
+function isDividerLine(s: string) {
+  return s.trim() === "------" || /^-{3,}$/.test(s.trim());
+}
+
+function renderSideLine(raw: string) {
+  const line = normalizeTypography(raw).trim();
+
+  if (line.includes("|")) {
+    const parts = line.split("|").map((p) => p.trim()).filter(Boolean);
+
+    return (
+      <div className="flex flex-wrap items-center gap-2">
+        {parts.map((p, idx) => {
+          const lower = p.toLowerCase();
+
+          if (LINK_MAP[p]) {
+            return (
+              <a
+                key={`${p}-${idx}`}
+                href={LINK_MAP[p]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 decoration-white/30 hover:decoration-white/70 transition"
+              >
+                {p}
+              </a>
+            );
+          }
+
+          if (lower === "pitchbook") {
+            return (
+              <a
+                key={`${p}-${idx}`}
+                href={PITCHBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 decoration-white/30 hover:decoration-white/70 transition"
+              >
+                {p}
+              </a>
+            );
+          }
+
+          return (
+            <span key={`${p}-${idx}`} className="text-zinc-300/80">
+              {p}
+            </span>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (LINK_MAP[line]) {
+    return (
+      <a
+        href={LINK_MAP[line]}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline underline-offset-4 decoration-white/30 hover:decoration-white/70 transition"
+      >
+        {line}
+      </a>
+    );
+  }
+
+  return <span>{line}</span>;
 }
 
 function renderMain(lines: string[]) {
@@ -319,6 +461,13 @@ export default async function Page({
   const prev = idx > 0 ? ITEMS[idx - 1] : undefined;
   const next = idx < ITEMS.length - 1 ? ITEMS[idx + 1] : undefined;
 
+  // role highlighting should be the first line after the LAST divider
+  const dividerIdxs = item.side
+    .map((v, i) => (isDividerLine(v) ? i : -1))
+    .filter((i) => i >= 0);
+  const lastDividerIdx = dividerIdxs.length ? dividerIdxs[dividerIdxs.length - 1] : -1;
+  const roleIdx = lastDividerIdx >= 0 ? lastDividerIdx + 1 : -1;
+
   return (
     <main className="relative min-h-screen text-zinc-100">
       <div className="fixed inset-0 -z-10 bg-black" />
@@ -340,16 +489,52 @@ export default async function Page({
                 ) : null}
               </div>
 
-              {/* Side text (no forced uppercase) */}
-              <div className="space-y-2 text-sm text-zinc-200 tracking-[0.02em]">
-                {item.side.map((line, n) => (
-                  <div
-                    key={n}
-                    className={line.trim().startsWith("-") ? "text-zinc-500" : ""}
-                  >
-                    {normalizeTypography(line)}
-                  </div>
-                ))}
+              {/* Side text (NOT centered) */}
+              <div className="space-y-3 text-sm text-zinc-200 tracking-[0.02em]">
+                {item.side.map((rawLine, n) => {
+                  const line = rawLine ?? "";
+
+                  if (isDividerLine(line)) {
+                    return (
+                      <div key={`div-${n}`} className="h-px w-16 bg-white/20 my-3" />
+                    );
+                  }
+
+                  const trimmed = line.trim();
+
+                  // INTERN in the info box must be all caps
+                  const displayText = item.slug === "intern" && n === 0 ? "INTERN" : trimmed;
+
+                  // FindSparrow custom emphasis rules
+                  const isSparrow = item.slug === "findsparrow";
+                  const isArrowPromotionLine = isSparrow && trimmed.startsWith("->");
+
+                  // muted logic:
+                  // - mute "(...)" lines
+                  // - mute "From internship to"
+                  // - mute single "-" helper lines
+                  // - BUT never mute the FindSparrow "-> VP..." line
+                  const isMutedLine =
+                    (!isArrowPromotionLine && trimmed.startsWith("-")) ||
+                    (isSparrow && trimmed.toLowerCase() === "from internship to") ||
+                    (isSparrow && trimmed.startsWith("("));
+
+                  const isCompanyLine = n === 0;
+                  const isRoleLine = n === roleIdx;
+
+                  const cls = [
+                    (isCompanyLine || isRoleLine || isArrowPromotionLine) && !isMutedLine
+                      ? "text-white font-semibold"
+                      : "text-zinc-200",
+                    isMutedLine ? "text-zinc-500" : "",
+                  ].join(" ");
+
+                  return (
+                    <div key={`side-${n}`} className={cls}>
+                      {renderSideLine(displayText)}
+                    </div>
+                  );
+                })}
               </div>
             </aside>
 
@@ -364,12 +549,12 @@ export default async function Page({
 
           {/* MAIN */}
           <article className="pb-16">
-            {/* Small label should match portfolio page label */}
+            {/* Small label */}
             <div className="text-[11px] tracking-[0.18em] text-zinc-400">
-              {normalizeTypography(item.title)}
+              {titleCaseLabel(item.title, item.slug)}
             </div>
 
-            {/* Big title should match portfolio page title */}
+            {/* Big title */}
             <h1 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-tight text-white">
               {normalizeTypography(item.headline)}
             </h1>
