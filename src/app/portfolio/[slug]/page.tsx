@@ -305,8 +305,14 @@ function renderMain(lines: string[]) {
   return out;
 }
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const item = ITEMS.find((x) => x.slug === params.slug);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  const item = ITEMS.find((x) => x.slug === slug);
   if (!item) return notFound();
 
   const idx = order.indexOf(item.slug);
@@ -337,7 +343,10 @@ export default function Page({ params }: { params: { slug: string } }) {
               {/* Side text (no forced uppercase) */}
               <div className="space-y-2 text-sm text-zinc-200 tracking-[0.02em]">
                 {item.side.map((line, n) => (
-                  <div key={n} className={line.trim().startsWith("-") ? "text-zinc-500" : ""}>
+                  <div
+                    key={n}
+                    className={line.trim().startsWith("-") ? "text-zinc-500" : ""}
+                  >
                     {normalizeTypography(line)}
                   </div>
                 ))}
