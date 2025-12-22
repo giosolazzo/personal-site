@@ -10,29 +10,28 @@ export default function SiteHeader() {
   const isPortfolio = pathname?.startsWith("/portfolio");
 
   return (
-<header
-  className={[
-    "sticky top-0 z-40 text-zinc-100",
-    isPortfolio ? "bg-transparent" : "bg-black",
-  ].join(" ")}
->
-
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 h-16 flex items-center justify-between">
+    <header
+      className={[
+        "sticky top-0 z-40 text-zinc-100",
+        isPortfolio ? "bg-transparent" : "bg-black",
+      ].join(" ")}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
         {/* left */}
         <Link
           href="/"
-          className="font-medium tracking-wide text-zinc-300 hover:text-zinc-100 transition"
+          className="font-medium tracking-wide text-zinc-300 hover:text-zinc-100 transition text-sm sm:text-base whitespace-nowrap"
         >
           hey, I’m Giuseppe
         </Link>
 
         {/* right */}
-        <nav className="flex items-center gap-4 text-sm">
+        <nav className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-zinc-400 flex-wrap justify-end">
           <a
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-400 hover:text-zinc-100 transition"
+            className="hover:text-zinc-100 transition whitespace-nowrap"
             aria-label="Schedule a call"
             title="Schedule a call"
           >
@@ -43,7 +42,7 @@ export default function SiteHeader() {
 
           <Link
             href="/contact"
-            className="text-zinc-400 hover:text-zinc-100 transition"
+            className="hover:text-zinc-100 transition text-right leading-tight max-w-42.5 sm:max-w-none"
             aria-label="Send a message"
             title="Send a message"
           >

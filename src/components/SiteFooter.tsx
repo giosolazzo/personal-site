@@ -15,7 +15,8 @@ export default function SiteFooter() {
         isPortfolio ? "bg-transparent" : "bg-black",
       ].join(" ")}
     >
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 h-full grid grid-cols-3 items-center">
+<div className="mx-auto max-w-7xl px-4 sm:px-8 h-full grid grid-cols-3 items-center">
+
         <div />
         <span className="justify-self-center text-sm sm:text-base">
           @ 2025 Giuseppe Solazzo

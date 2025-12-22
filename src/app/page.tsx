@@ -54,7 +54,7 @@ function TraceBorderCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className={["trace-wrap", seqClassName].join(" ")}>
+    <div className={["trace-wrap", seqClassName].join(" ")} data-trace>
       <div className="trace-surface">{children}</div>
 
       <svg
@@ -112,8 +112,8 @@ export default function Home() {
   useEffect(() => {
     if (reduced) return;
 
-    const speed = 60; // slower = more “smog”
-    const shadowHold = 520; // longer = visible but subtle
+    const speed = 60;
+    const shadowHold = 520;
 
     const runWave = () => {
       const len = NARRATIVE.length;
@@ -168,10 +168,7 @@ export default function Home() {
         }
         .trace-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-        /*
-          KEY: trace ALWAYS exists, animation scheduled via CSS + delays.
-          No React toggling -> no dash jump/glitch.
-        */
+        /* Trace always exists; animation scheduled via CSS delays */
         .trace-stroke {
           opacity: 0;
           stroke-dasharray: 52 468;
@@ -199,28 +196,31 @@ export default function Home() {
       `}</style>
 
       <div
-        className="mx-auto max-w-3xl px-6
-                   min-h-[calc(100svh-var(--hdr)-var(--ftr))]
-                   flex flex-col"
+        className={[
+          "mx-auto max-w-3xl",
+          "px-4 sm:px-6", // better on iPhone
+          "min-h-[calc(100svh-var(--hdr)-var(--ftr))]",
+          "flex flex-col",
+        ].join(" ")}
       >
-        {/* Move content LOWER (more middle but still a bit up) */}
-        <div className="h-14 sm:h-16" />
+        {/* Responsive spacer: puts content lower + more centered on mobile */}
+        <div className="h-10 sm:h-14" />
 
         {/* THE MENU */}
         <section className="text-center">
-          <p className="text-sm sm:text-base uppercase tracking-[0.22em] smog-muted">
+          <p className="text-xs sm:text-base uppercase tracking-[0.22em] smog-muted">
             THE MENU
           </p>
         </section>
 
         {/* Cards */}
-        <section className="mt-6 pb-1">
+        <section className="mt-5 sm:mt-6 pb-1">
           <div className="space-y-3">
             {/* Midsummer */}
             <TraceBorderCard seqClassName="trace-0">
-              <div className="px-5 py-4">
-                <div className="flex items-center justify-between gap-5">
-                  <div>
+              <div className="px-4 sm:px-5 py-3.5 sm:py-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
+                  <div className="min-w-0">
                     <h2 className="text-lg sm:text-xl font-medium smog-strong">
                       Midsummer
                     </h2>
@@ -231,7 +231,7 @@ export default function Home() {
 
                   <a
                     href="https://midsummerlab.com/midsummer"
-                    className="rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition"
+                    className="w-full sm:w-auto text-center rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition"
                   >
                     Open
                   </a>
@@ -241,9 +241,9 @@ export default function Home() {
 
             {/* Eon */}
             <TraceBorderCard seqClassName="trace-1">
-              <div className="px-5 py-4">
-                <div className="flex items-center justify-between gap-5">
-                  <div>
+              <div className="px-4 sm:px-5 py-3.5 sm:py-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
+                  <div className="min-w-0">
                     <h2 className="text-lg sm:text-xl font-medium smog-strong">
                       Eon
                     </h2>
@@ -254,7 +254,7 @@ export default function Home() {
 
                   <Link
                     href="/eon"
-                    className="rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition"
+                    className="w-full sm:w-auto text-center rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition"
                   >
                     Open
                   </Link>
@@ -263,7 +263,7 @@ export default function Home() {
             </TraceBorderCard>
 
             {/* Divider */}
-            <div className="my-6 sm:my-8 text-center">
+            <div className="my-5 sm:my-7 text-center">
               <span className="inline-block smog font-semibold tracking-wider select-none opacity-70">
                 ----------------
               </span>
@@ -271,15 +271,15 @@ export default function Home() {
 
             {/* Portfolio */}
             <TraceBorderCard seqClassName="trace-2">
-              <div className="px-5 py-4">
-                <div className="flex items-center justify-between gap-5">
-                  <div className="flex items-center gap-4">
+              <div className="px-4 sm:px-5 py-3.5 sm:py-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
+                  <div className="flex items-center gap-4 min-w-0">
                     <Thumb
                       src="/images/portfolio/gio-logo.png"
                       alt="Giuseppe logo"
-                      size={56}
+                      size={52} // slightly smaller for mobile
                     />
-                    <div>
+                    <div className="min-w-0">
                       <h2 className="text-lg sm:text-xl font-medium smog-strong">
                         Portfolio
                       </h2>
@@ -289,27 +289,29 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* LinkedIn icon-only / Browse */}
-                  <div className="flex items-center gap-3">
-                    <a
-                      href="https://www.linkedin.com/in/giuseppe-solazzo/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full border border-zinc-700/70 px-4 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition inline-flex items-center"
-                      aria-label="Open Giuseppe on LinkedIn"
-                      title="LinkedIn"
-                    >
-                      <LinkedInIconBW size={16} />
-                    </a>
+                  {/* Actions: stacked on mobile, inline on desktop */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
+                    <div className="flex items-center justify-center sm:justify-start gap-3">
+                      <a
+                        href="https://www.linkedin.com/in/giuseppe-solazzo/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-full border border-zinc-700/70 px-4 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition inline-flex items-center justify-center"
+                        aria-label="Open Giuseppe on LinkedIn"
+                        title="LinkedIn"
+                      >
+                        <LinkedInIconBW size={16} />
+                      </a>
 
-                    <span className="text-zinc-700 select-none">/</span>
+                      <span className="text-zinc-700 select-none">/</span>
 
-                    <Link
-                      href="/portfolio"
-                      className="rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition"
-                    >
-                      Browse
-                    </Link>
+                      <Link
+                        href="/portfolio"
+                        className="rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition inline-flex items-center justify-center"
+                      >
+                        Browse
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -318,9 +320,9 @@ export default function Home() {
         </section>
 
         {/* Phrase back (under Portfolio) in THE MENU style */}
-        <section className="mt-10 text-center">
-          <p className="text-sm sm:text-base tracking-[0.22em] smog-muted">
-            {NARRATIVE}
+        <section className="mt-7 sm:mt-10 text-center">
+          <p className="text-xs sm:text-base tracking-[0.22em] smog-muted leading-relaxed">
+            <CharLine text={NARRATIVE} activeIdxFromEnd={activeIdxFromEnd} />
           </p>
         </section>
 
