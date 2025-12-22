@@ -31,18 +31,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100 min-h-svh flex flex-col`}
       >
-        {/* Full-height column: header top, footer bottom */}
-        <div className="min-h-dvh flex flex-col">
-          <SiteHeader />
+        <SiteHeader />
 
-          {/* This is the key: page content expands and pushes footer down */}
-          <main className="flex-1 bg-black">{children}</main>
+        {/* main content fills remaining space */}
+        <div className="flex-1 flex flex-col">{children}</div>
 
-
-          <SiteFooter />
-        </div>
+        <SiteFooter />
 
         <Analytics />
         <SpeedInsights />

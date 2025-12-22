@@ -195,14 +195,14 @@ export default function Home() {
         }
       `}</style>
 
-      <div
-        className={[
-          "mx-auto max-w-3xl",
-          "px-4 sm:px-6", // better on iPhone
-          "h-full",
-          "flex flex-col",
-        ].join(" ")}
-      >
+<div
+  className={[
+    "mx-auto max-w-3xl",
+    "px-4 sm:px-6",
+    "flex-1",
+    "flex flex-col",
+  ].join(" ")}
+>
         {/* Responsive spacer: puts content lower + more centered on mobile */}
         <div className="h-10 sm:h-14" />
 
