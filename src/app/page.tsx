@@ -144,7 +144,7 @@ export default function Home() {
   }, [reduced]);
 
   return (
-    <main className="bg-black text-zinc-100">
+  <main className="bg-black text-zinc-100 h-full">
       <style>{`
         /* Smoggy palette on black */
         .smog-strong { color: rgba(244,244,245,0.92); }
@@ -199,7 +199,7 @@ export default function Home() {
         className={[
           "mx-auto max-w-3xl",
           "px-4 sm:px-6", // better on iPhone
-          "min-h-[calc(100svh-var(--hdr)-var(--ftr))]",
+          "h-full",
           "flex flex-col",
         ].join(" ")}
       >

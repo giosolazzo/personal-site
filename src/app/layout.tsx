@@ -30,10 +30,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100`}>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100`}
+      >
+        {/* Full-height column: header top, footer bottom */}
+        <div className="min-h-dvh flex flex-col">
+          <SiteHeader />
+
+          {/* This is the key: page content expands and pushes footer down */}
+          <main className="flex-1 bg-black">{children}</main>
+
+
+          <SiteFooter />
+        </div>
+
         <Analytics />
         <SpeedInsights />
       </body>
