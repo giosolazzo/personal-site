@@ -3,30 +3,51 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const CAL_LINK = "https://cal.com/gio-solazzo";
+
 export default function SiteHeader() {
   const pathname = usePathname();
   const isPortfolio = pathname?.startsWith("/portfolio");
 
   return (
-    <header
-      className={[
-        "sticky top-0 z-40 text-zinc-100 border-b",
-        isPortfolio ? "bg-transparent border-transparent" : "bg-black border-white/10",
-      ].join(" ")}
-    >
+<header
+  className={[
+    "sticky top-0 z-40 text-zinc-100",
+    isPortfolio ? "bg-transparent" : "bg-black",
+  ].join(" ")}
+>
+
       <div className="mx-auto max-w-7xl px-6 sm:px-8 h-16 flex items-center justify-between">
-        {/* left: site label */}
-        <Link href="/" className="font-medium tracking-wide">
-          hey, i’m giuseppe
+        {/* left */}
+        <Link
+          href="/"
+          className="font-medium tracking-wide text-zinc-300 hover:text-zinc-100 transition"
+        >
+          hey, I’m Giuseppe
         </Link>
 
-        {/* right: contact */}
-        <nav className="flex items-center gap-6 text-sm">
+        {/* right */}
+        <nav className="flex items-center gap-4 text-sm">
+          <a
+            href={CAL_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-zinc-400 hover:text-zinc-100 transition"
+            aria-label="Schedule a call"
+            title="Schedule a call"
+          >
+            Let’s talk
+          </a>
+
+          <span className="text-zinc-700 select-none">/</span>
+
           <Link
             href="/contact"
-            className="font-semibold hover:opacity-80 no-underline"
+            className="text-zinc-400 hover:text-zinc-100 transition"
+            aria-label="Send a message"
+            title="Send a message"
           >
-            what’s the worst that could happen if you reached out?
+            What’s the worst that could happen if you reached out?
           </Link>
         </nav>
       </div>

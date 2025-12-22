@@ -21,8 +21,13 @@ export default function SiteFooter() {
           @ 2025 Giuseppe Solazzo
         </span>
         <nav className="justify-self-end flex items-center gap-4 text-sm sm:text-base">
-          <Link href="/" className="underline underline-offset-2 hover:text-white">Home</Link>
-          <Link href="/privacy" className="underline underline-offset-2 hover:text-white">Privacy</Link>
+<Link
+  href="/privacy"
+  className="hover:text-white transition"
+>
+  Privacy
+</Link>
+
         </nav>
       </div>
     </footer>
