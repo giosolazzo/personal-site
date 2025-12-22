@@ -28,7 +28,7 @@ export default function ContactPage() {
         <div className="flex-1 flex items-center justify-center py-10 sm:py-14">
           <div className="w-full">
             <h1 className="text-xl sm:text-2xl font-medium text-zinc-100/90 text-center">
-              what’s the worst thing that could happen if you reached out?
+              What’s the worst thing that could happen if you reached out?
             </h1>
             <form onSubmit={onSubmit} className="mt-8 space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
