@@ -195,14 +195,10 @@ export default function Home() {
         }
       `}</style>
 
-<div
-  className={[
-    "mx-auto max-w-3xl",
-    "px-4 sm:px-6",
-    "flex-1",
-    "flex flex-col",
-  ].join(" ")}
->
+<div className="mx-auto max-w-3xl px-4 sm:px- flex flex-col py-10 sm:py-14">
+  {/* a bit lower on desktop */}
+  <div className="h-8 sm:h-5" />
+
         {/* Responsive spacer: puts content lower + more centered on mobile */}
         <div className="h-10 sm:h-14" />
 

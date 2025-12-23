@@ -10,10 +10,12 @@ export default function SiteFooter() {
   return (
     <footer
       className={[
-        // ensure it renders above the fixed background
-        "relative z-10 text-zinc-400 h-16 mt-auto",
+        "relative z-10 text-zinc-400 mt-auto",
+        // keep your visual height, but allow safe-area padding
+        "h-16",
         isPortfolio ? "bg-transparent" : "bg-black",
       ].join(" ")}
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-8 h-full grid grid-cols-3 items-center">
         <div />
