@@ -195,10 +195,10 @@ export default function Home() {
 
       <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col py-10 sm:py-14">
         {/* a bit lower on desktop */}
-        <div className="h-6 sm:h-5" />
+        <div className="h-3 sm:h-5" />
 
         {/* Responsive spacer: puts content lower + more centered on mobile */}
-        <div className="h-6 sm:h-14" />
+        <div className="h-3 sm:h-10" />
 
         {/* THE MENU */}
         <section className="text-center">

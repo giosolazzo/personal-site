@@ -51,16 +51,55 @@ export default function SiteHeader() {
           </Link>
 
           {/* right */}
-          <nav className="relative flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-zinc-400 justify-end">
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              className="cursor-pointer hover:text-zinc-100 transition whitespace-nowrap font-medium text-zinc-300"
-              aria-haspopup="menu"
-              aria-expanded={open}
-            >
-              Begin a conversation
-            </button>
+          <nav className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-zinc-400 justify-end">
+            {/* Anchor wrapper */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                className="cursor-pointer hover:text-zinc-100 transition whitespace-nowrap font-medium text-zinc-300 gs-title-wght"
+                aria-haspopup="menu"
+                aria-expanded={open}
+              >
+                Begin a conversation
+              </button>
+
+              {/* Slide-down panel */}
+              <div
+                ref={panelRef}
+                className={[
+                  "absolute left-0 top-full mt-4 z-50",
+                  "transition-all duration-200 ease-out",
+                  open
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none",
+                ].join(" ")}
+                role="menu"
+                aria-label="Begin a conversation options"
+              >
+                <div className="px-1 py-1">
+                  <a
+                    href={CAL_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
+                    className="block py-1.5 text-zinc-300 hover:text-zinc-100 transition whitespace-nowrap"
+                    role="menuitem"
+                  >
+                    Let’s have a call
+                  </a>
+
+                  <Link
+                    href="/contact"
+                    onClick={() => setOpen(false)}
+                    className="block py-1.5 text-zinc-300 hover:text-zinc-100 transition whitespace-nowrap"
+                    role="menuitem"
+                  >
+                    Send me a message
+                  </Link>
+                </div>
+              </div>
+            </div>
 
             <span className="text-zinc-700 select-none">/</span>
 
@@ -70,43 +109,6 @@ export default function SiteHeader() {
             >
               Privacy
             </Link>
-
-            {/* Slide-down panel (stacked, minimal) */}
-            <div
-              ref={panelRef}
-              className={[
-                "absolute right-0 top-13 sm:top-14",
-                "min-w-55",
-                "transition-all duration-200 ease-out",
-                open
-                  ? "opacity-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 -translate-y-2 pointer-events-none",
-              ].join(" ")}
-              role="menu"
-              aria-label="Begin a conversation options"
-            >
-              <div className="px-3 py-2">
-                <a
-                  href={CAL_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="block py-1.5 text-zinc-300 hover:text-zinc-100 transition whitespace-nowrap"
-                  role="menuitem"
-                >
-                  Let’s have a call
-                </a>
-
-                <Link
-                  href="/contact"
-                  onClick={() => setOpen(false)}
-                  className="block py-1.5 text-zinc-300 hover:text-zinc-100 transition whitespace-nowrap"
-                  role="menuitem"
-                >
-                  Send me a message
-                </Link>
-              </div>
-            </div>
           </nav>
         </div>
       </header>

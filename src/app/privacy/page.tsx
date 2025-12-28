@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "A short note on what this site collects and how to reach me.",
 };
 
-const UPDATED = "2025-09-25";
+const UPDATED = "2025-12-28";
 
 export default function Privacy() {
   return (
