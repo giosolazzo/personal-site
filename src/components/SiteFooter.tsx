@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function SiteFooter() {
@@ -10,8 +9,9 @@ export default function SiteFooter() {
   return (
     <footer
       className={[
-        "relative z-10 text-zinc-400 mt-auto",
-        // keep your visual height, but allow safe-area padding
+        "relative z-10",
+        "text-zinc-400",
+        "mt-auto",
         "h-16",
         isPortfolio ? "bg-transparent" : "bg-black",
       ].join(" ")}
@@ -20,13 +20,9 @@ export default function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 sm:px-8 h-full grid grid-cols-3 items-center">
         <div />
         <span className="justify-self-center text-sm sm:text-base">
-          @ 2025 Giuseppe Solazzo
+          © 2025 Giuseppe Solazzo
         </span>
-        <nav className="justify-self-end flex items-center gap-4 text-sm sm:text-base">
-          <Link href="/privacy" className="hover:text-white transition">
-            Privacy
-          </Link>
-        </nav>
+        <div />
       </div>
     </footer>
   );

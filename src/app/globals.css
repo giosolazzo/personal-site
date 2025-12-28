@@ -9,9 +9,9 @@
   --color-charcoal: #262424;     /* Dark 1 */
   --color-graphite: #1f1e1e;     /* Dark 2 */
 
-  /* semantic */
-  --color-bg: var(--color-ivory);
-  --color-fg: #111111;
+  /* semantic (DEFAULT SITE THEME = DARK) */
+  --color-bg: #000000;
+  --color-fg: #ededed;
 
   /* type (kept Geist from next/font) */
   --font-heading: var(--font-geist-sans);
@@ -20,23 +20,32 @@
   /* radii */
   --radius-xl: 9999px;
   --radius-lg: 24px;
-}
-:root {
+
+  /* layout */
   --hdr: 56px;
   --ftr: 56px;
 }
 
-/* Keep your existing styles below */
+/* optional light theme if you ever need it */
+:root.light {
+  --color-bg: var(--color-ivory);
+  --color-fg: #111111;
+}
 
-/* dark hero option if you ever need it */
+/* dark hero option if you ever need it (kept for compatibility) */
 :root.dark {
   --color-bg: #000000;
   --color-fg: #ededed;
 }
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+  background: var(--color-bg);
+}
 
 body {
+  margin: 0;
   background: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-body);
@@ -52,4 +61,80 @@ body.portfolio-skin .site-footer {
   background-color: transparent !important;
   border-color: transparent !important;
   backdrop-filter: none !important;
+}
+
+/* =========================================================
+   Button system (surgical)
+   Apply ONLY by adding: className="gs-btn gs-btn-5"
+   ========================================================= */
+
+.gs-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Forces consistent height across icon + text pills */
+  height: 40px;
+  padding: 0 24px;
+  border-radius: 9999px;
+
+  border: 1px solid rgba(63, 63, 70, 0.70);
+  color: rgba(212, 212, 216, 0.80);
+
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.gs-btn:hover {
+  border-color: rgba(161, 161, 170, 0.70);
+  color: rgba(244, 244, 245, 0.92);
+}
+
+.gs-btn:focus-visible {
+  outline: 2px solid rgba(244, 244, 245, 0.25);
+  outline-offset: 3px;
+}
+
+.gs-btn-icon {
+  padding: 0 16px;
+}
+
+/* =========================
+   Effect: "btn-5" (adapted)
+   ========================= */
+.gs-btn-5 {
+  border: 1px solid rgba(63, 63, 70, 0.70);
+
+  /* Button 5 “glow / outline-offset” vibe */
+  outline: 1px solid rgba(244, 244, 245, 0.35);
+  outline-offset: 0px;
+  box-shadow: inset 0 0 20px rgba(244, 244, 245, 0);
+
+  transition: all 900ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.gs-btn-5:hover {
+  border-color: rgba(244, 244, 245, 0.35);
+
+  box-shadow:
+    inset 0 0 20px rgba(244, 244, 245, 0.35),
+    0 0 18px rgba(244, 244, 245, 0.12);
+
+  outline-color: rgba(244, 244, 245, 0);
+  outline-offset: 12px;
+
+  text-shadow: 1px 1px 2px rgba(66, 115, 136, 0.35);
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gs-btn,
+  .gs-btn-5 {
+    transition: none !important;
+  }
 }

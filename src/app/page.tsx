@@ -8,9 +8,7 @@ const NARRATIVE = "Writing a story that only makes sense in reverse.";
 
 function prefersReducedMotion(): boolean {
   if (typeof window === "undefined") return false;
-  return (
-    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
-  );
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 }
 
 /**
@@ -144,7 +142,7 @@ export default function Home() {
   }, [reduced]);
 
   return (
-  <main className="bg-black text-zinc-100 h-full">
+    <main className="bg-black text-zinc-100 h-full">
       <style>{`
         /* Smoggy palette on black */
         .smog-strong { color: rgba(244,244,245,0.92); }
@@ -195,12 +193,12 @@ export default function Home() {
         }
       `}</style>
 
-<div className="mx-auto max-w-3xl px-4 sm:px- flex flex-col py-10 sm:py-14">
-  {/* a bit lower on desktop */}
-  <div className="h-8 sm:h-5" />
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col py-10 sm:py-14">
+        {/* a bit lower on desktop */}
+        <div className="h-6 sm:h-5" />
 
         {/* Responsive spacer: puts content lower + more centered on mobile */}
-        <div className="h-10 sm:h-14" />
+        <div className="h-6 sm:h-14" />
 
         {/* THE MENU */}
         <section className="text-center">
@@ -227,7 +225,7 @@ export default function Home() {
 
                   <a
                     href="https://midsummerlab.com/midsummer"
-                    className="w-full sm:w-auto text-center rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition"
+                    className="gs-btn gs-btn-5 w-full sm:w-auto text-center"
                   >
                     Open
                   </a>
@@ -250,7 +248,7 @@ export default function Home() {
 
                   <Link
                     href="/eon"
-                    className="w-full sm:w-auto text-center rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition"
+                    className="gs-btn gs-btn-5 w-full sm:w-auto text-center"
                   >
                     Open
                   </Link>
@@ -273,7 +271,7 @@ export default function Home() {
                     <Thumb
                       src="/images/portfolio/gio-logo.png"
                       alt="Giuseppe logo"
-                      size={52} // slightly smaller for mobile
+                      size={52}
                     />
                     <div className="min-w-0">
                       <h2 className="text-lg sm:text-xl font-medium smog-strong">
@@ -285,14 +283,13 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Actions: stacked on mobile, inline on desktop */}
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
                     <div className="flex items-center justify-center sm:justify-start gap-3">
                       <a
                         href="https://www.linkedin.com/in/giuseppe-solazzo/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="rounded-full border border-zinc-700/70 px-4 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition inline-flex items-center justify-center"
+                        className="gs-btn gs-btn-5 gs-btn-icon"
                         aria-label="Open Giuseppe on LinkedIn"
                         title="LinkedIn"
                       >
@@ -301,10 +298,7 @@ export default function Home() {
 
                       <span className="text-zinc-700 select-none">/</span>
 
-                      <Link
-                        href="/portfolio"
-                        className="rounded-full border border-zinc-700/70 px-6 py-2 text-sm sm:text-base smog hover:border-zinc-500/70 hover:text-zinc-100 transition inline-flex items-center justify-center"
-                      >
+                      <Link href="/portfolio" className="gs-btn gs-btn-5">
                         Browse
                       </Link>
                     </div>

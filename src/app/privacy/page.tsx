@@ -1,4 +1,3 @@
-// src/app/privacy/page.tsx
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +9,7 @@ const UPDATED = "2025-09-25";
 
 export default function Privacy() {
   return (
-    <main className="bg-black text-zinc-100 px-6 py-12">
+    <main className="bg-black text-zinc-100 px-6 py-12 flex-1">
       <div className="mx-auto max-w-3xl space-y-8">
         <header>
           <h1 className="text-3xl font-semibold">Privacy</h1>
@@ -21,11 +20,12 @@ export default function Privacy() {
           <h2 className="text-xl font-medium">What’s collected</h2>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              <span className="font-medium">Basic, cookieless analytics</span> (page views,
-              country/region, referrer, device type, performance).
+              <span className="font-medium">Basic, cookieless analytics</span>{" "}
+              (page views, country/region, referrer, device type, performance).
             </li>
             <li>
-              <span className="font-medium">Short-lived server logs</span> (for reliability and abuse prevention).
+              <span className="font-medium">Short-lived server logs</span> (for
+              reliability and abuse prevention).
             </li>
           </ul>
         </section>
@@ -42,9 +42,7 @@ export default function Privacy() {
           <h2 className="text-xl font-medium">Your choices</h2>
           <ul className="list-disc pl-6 space-y-2">
             <li>You can request deletion of any saved contact information.</li>
-            <li>
-              Email me from the same address you want removed and I’ll handle it.
-            </li>
+            <li>Email me from the same address you want removed and I’ll handle it.</li>
           </ul>
         </section>
 

@@ -9,8 +9,6 @@ export default function ContactPage() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // If you already have an API route hooked up, wire it here.
-    // For now we just simulate success:
     try {
       setStatus("sending");
       await new Promise((r) => setTimeout(r, 400));
@@ -24,12 +22,12 @@ export default function ContactPage() {
   return (
     <main className="bg-black text-zinc-100 flex-1">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 flex-1 flex flex-col">
-        {/* Center the form block within the page */}
         <div className="flex-1 flex items-center justify-center py-10 sm:py-14">
           <div className="w-full">
             <h1 className="text-xl sm:text-2xl font-medium text-zinc-100/90 text-center">
               What’s the worst thing that could happen if you reached out?
             </h1>
+
             <form onSubmit={onSubmit} className="mt-8 space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -90,7 +88,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="rounded-full border border-zinc-700/70 px-6 py-2 text-zinc-300 hover:text-zinc-100 hover:border-zinc-500/70 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="gs-btn gs-btn-5"
                 >
                   {status === "sending"
                     ? "sending..."
