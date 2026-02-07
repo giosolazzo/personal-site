@@ -20,7 +20,7 @@ export default function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 sm:px-8 h-full grid grid-cols-3 items-center">
         <div />
         <span className="justify-self-center text-sm sm:text-base">
-          © 2025 Giuseppe Solazzo
+          © 2026 Giuseppe Solazzo
         </span>
         <div />
       </div>

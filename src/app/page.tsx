@@ -198,7 +198,7 @@ export default function Home() {
         <div className="h-3 sm:h-5" />
 
         {/* Responsive spacer: puts content lower + more centered on mobile */}
-        <div className="h-3 sm:h-10" />
+        <div className="h-3 sm:h-8" />
 
         {/* THE MENU */}
         <section className="text-center">
