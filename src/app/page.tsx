@@ -216,15 +216,15 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
                   <div className="min-w-0">
                     <h2 className="text-lg sm:text-xl font-medium smog-strong">
-                      Midsummer
+                      Midsummer Lab
                     </h2>
                     <p className="mt-1 text-[15px] sm:text-base smog-muted">
-                      Spoken explorations on breaking perfection.
+                      Spoken exploration of the tools for a postponed life.
                     </p>
                   </div>
 
                   <a
-                    href="https://midsummerlab.com/midsummer"
+                    href="https://midsummerlab.com"
                     className="gs-btn gs-btn-5 w-full sm:w-auto text-center"
                   >
                     Open
@@ -233,25 +233,24 @@ export default function Home() {
               </div>
             </TraceBorderCard>
 
-            {/* Eon */}
+            {/* One */}
             <TraceBorderCard seqClassName="trace-1">
               <div className="px-4 sm:px-5 py-3.5 sm:py-4">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
                   <div className="min-w-0">
                     <h2 className="text-lg sm:text-xl font-medium smog-strong">
-                      Eon
+                      One
                     </h2>
                     <p className="mt-1 text-[15px] sm:text-base smog-muted">
-                      A reflective project in progress.
+                      A chatbot for building trust in the voice.
                     </p>
                   </div>
 
-                  <Link
-                    href="/eon"
-                    className="gs-btn gs-btn-5 w-full sm:w-auto text-center"
-                  >
-                    Open
-                  </Link>
+                  <div className="w-full sm:w-auto text-center">
+                    <span className="text-red-500 font-medium">
+                      On a shelf
+                    </span>
+                  </div>
                 </div>
               </div>
             </TraceBorderCard>
