@@ -226,7 +226,7 @@ function TimelineWire({
   if (!metrics.h || !metrics.w || !metrics.path) return null;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-[1]">
+    <div className="pointer-events-none absolute inset-0 z-1">
       <svg
         width="100%"
         height={metrics.h}
@@ -510,7 +510,7 @@ export default function PortfolioPage() {
       </div>
 
       {/* HERO HEADER */}
-      <section className="relative z-10 h-[100svh] px-6">
+      <section className="relative z-10 h-svh px-6">
         <div className="mx-auto max-w-6xl h-full flex flex-col items-center justify-center text-center">
           <div style={{ transform: "translateY(-8vh)" }}>
             <h1 className="text-4xl sm:text-5xl font-semibold">
@@ -541,7 +541,7 @@ export default function PortfolioPage() {
           <TimelineWire contentRef={contentRef} rows={rowMeta} />
 
           {/* rows */}
-          <div className="relative z-[2]">
+          <div className="relative z-2">
             {experiences.map((exp, idx) => (
               <ExperienceRow
                 key={exp.slug}
@@ -599,13 +599,13 @@ function ExperienceRow({
               width={560}
               height={560}
               priority={index === 0}
-              className="rounded-2xl shadow-md w-[340px] sm:w-[440px] h-auto"
+              className="rounded-2xl shadow-md w-85 sm:w-110 h-auto"
             />
           </div>
 
           <div
             className={[
-              "w-[340px] sm:w-[440px]",
+              "w-85 sm:w-110",
               "rounded-2xl border border-zinc-700/60 bg-black/30 backdrop-blur-sm",
               "px-6 py-5",
               "text-center",

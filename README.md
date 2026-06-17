@@ -16,6 +16,18 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Contact Form Email
+
+The contact page posts to `/api/contact`, which sends email to `gio.solazzo.o@gmail.com` through Resend.
+Configure this environment variable locally and in your deployment:
+
+```bash
+RESEND_API_KEY=your_resend_api_key
+```
+
+You can also set `CONTACT_FROM_EMAIL` to a sender address from a verified Resend domain.
+If it is not set, the app uses `Personal Site <onboarding@resend.dev>`.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

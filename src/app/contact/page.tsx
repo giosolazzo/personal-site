@@ -1,21 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
+  const [errorMessage, setErrorMessage] = useState("");
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+
     try {
       setStatus("sending");
-      await new Promise((r) => setTimeout(r, 400));
+      setErrorMessage("");
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: new FormData(form),
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || result?.ok !== true) {
+        throw new Error(result?.error || "Could not send the message.");
+      }
+
       setStatus("sent");
-      (e.target as HTMLFormElement).reset();
-    } catch {
+      form.reset();
+    } catch (error) {
       setStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Something broke - try again."
+      );
     }
   }
 
@@ -25,7 +42,7 @@ export default function ContactPage() {
         <div className="flex-1 flex items-center justify-center py-10 sm:py-14">
           <div className="w-full">
             <h1 className="text-xl sm:text-2xl font-medium text-zinc-100/90 text-center">
-              What’s the worst thing that could happen if you reached out?
+              What&apos;s the worst thing that could happen if you reached out?
             </h1>
 
             <form onSubmit={onSubmit} className="mt-8 space-y-5">
@@ -100,7 +117,7 @@ export default function ContactPage() {
 
               {status === "error" ? (
                 <p className="text-center text-sm text-zinc-500">
-                  something broke — try again.
+                  {errorMessage || "Something broke - try again."}
                 </p>
               ) : null}
             </form>
