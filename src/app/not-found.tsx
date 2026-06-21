@@ -9,9 +9,9 @@ export default function NotFound() {
         <h1 className="text-3xl font-semibold">Page not found</h1>
         <p className="text-zinc-400">Try one of these:</p>
         <div className="flex gap-3 justify-center flex-wrap">
-          <Link href="/" className="px-4 py-2 rounded-md border border-zinc-600 hover:bg-zinc-100 hover:text-black transition">Home</Link>
-          <Link href="/eon" className="px-4 py-2 rounded-md border border-zinc-600 hover:bg-zinc-100 hover:text-black transition">Eon</Link>
-          <Link href="/portfolio" className="px-4 py-2 rounded-md border border-zinc-600 hover:bg-zinc-100 hover:text-black transition">Portfolio</Link>
+          <Link href="/" className="px-4 py-2 border border-zinc-700 hover:border-zinc-200 transition">Home</Link>
+          <Link href="/one" className="px-4 py-2 border border-zinc-700 hover:border-zinc-200 transition">One</Link>
+          <Link href="/portfolio" className="px-4 py-2 border border-zinc-700 hover:border-zinc-200 transition">Portfolio</Link>
         </div>
       </div>
     </main>

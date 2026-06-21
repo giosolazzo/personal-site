@@ -1,10 +1,88 @@
 "use client";
 
 import Link from "next/link";
+import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
-import Thumb from "@/components/Thumb";
 
 const NARRATIVE = "Writing a story that only makes sense in reverse.";
+
+type TraceStyle = CSSProperties & { "--trace-delay": string };
+type SoonStyle = CSSProperties & { "--soon-delay": string };
+
+type MenuAction = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+type MenuActions = {
+  primary: MenuAction;
+  linkedin: MenuAction;
+};
+
+type MenuCard = {
+  title: string;
+  body: string;
+  action?: MenuAction;
+  actions?: MenuActions;
+  status?: string;
+};
+
+const MENU_CARDS: MenuCard[] = [
+  {
+    title: "Midsummer Lab",
+    body: "Spoken exploration of the tools for a postponed life.",
+    action: {
+      label: "Open",
+      href: "https://midsummerlab.com",
+      external: true,
+    },
+  },
+  {
+    title: "One",
+    body: "A chatbot for building trust in the voice.",
+    status: "On a shelf",
+  },
+  {
+    title: "Mentoring",
+    body: "1:1 / groups / academia",
+    actions: {
+      primary: {
+        label: "Open",
+        href: "/contact",
+      },
+      linkedin: {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/giuseppe-solazzo/",
+        external: true,
+      },
+    },
+  },
+  {
+    title: "Newsletter",
+    body: "Letters from me to me.",
+    status: "coming soon",
+  },
+];
+
+const PORTFOLIO_ROOMS = [
+  {
+    title: "Work chapters",
+    body: "The honest work timeline.",
+    href: "/portfolio",
+    status: "Open",
+  },
+  {
+    title: "Acting",
+    body: "Voice, body, pressure, play.",
+    status: "coming soon",
+  },
+  {
+    title: "-----",
+    body: "Not ready for light yet.",
+    status: "coming soon",
+  },
+];
 
 function prefersReducedMotion(): boolean {
   if (typeof window === "undefined") return false;
@@ -45,14 +123,20 @@ function CharLine({
  * No React toggling -> no glitch.
  */
 function TraceBorderCard({
-  seqClassName,
+  delay,
+  className = "",
   children,
 }: {
-  seqClassName: string; // "trace-0" | "trace-1" | "trace-2"
-  children: React.ReactNode;
+  delay: number;
+  className?: string;
+  children: ReactNode;
 }) {
   return (
-    <div className={["trace-wrap", seqClassName].join(" ")} data-trace>
+    <div
+      className={["trace-wrap", className].join(" ")}
+      data-trace
+      style={{ "--trace-delay": `${delay}s` } as TraceStyle}
+    >
       <div className="trace-surface">{children}</div>
 
       <svg
@@ -77,6 +161,61 @@ function TraceBorderCard({
         />
       </svg>
     </div>
+  );
+}
+
+function ActionLink({ action }: { action: MenuAction }) {
+  if (action.external) {
+    return (
+      <a
+        href={action.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="gs-btn gs-btn-5 home-menu-btn w-full sm:w-auto text-center"
+      >
+        {action.label}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={action.href}
+      className="gs-btn gs-btn-5 home-menu-btn w-full sm:w-auto text-center"
+    >
+      {action.label}
+    </Link>
+  );
+}
+
+function MentoringActions({ actions }: { actions: MenuActions }) {
+  return (
+    <div className="flex w-full items-center justify-center gap-3 sm:w-auto">
+      <a
+        href={actions.linkedin.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="plain-linkedin"
+        aria-label="Open Giuseppe on LinkedIn"
+        title={actions.linkedin.label}
+      >
+        <LinkedInIconBW size={16} />
+      </a>
+      <span className="text-zinc-700 select-none">/</span>
+      <ActionLink action={actions.primary} />
+    </div>
+  );
+}
+
+function SoonSignal({ label, delay = 0 }: { label: string; delay?: number }) {
+  return (
+    <span
+      className="soon-signal"
+      style={{ "--soon-delay": `${delay}s` } as SoonStyle}
+    >
+      <span className="soon-dot" aria-hidden="true" />
+      {label}
+    </span>
   );
 }
 
@@ -166,11 +305,13 @@ export default function Home() {
         }
         .trace-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-        /* Trace always exists; animation scheduled via CSS delays */
+        /* Back close to the original light trace, just driven by a variable delay */
         .trace-stroke {
           opacity: 0;
           stroke-dasharray: 52 468;
           stroke-dashoffset: 0;
+          animation: traceOnce 5.2s linear 1 forwards;
+          animation-delay: var(--trace-delay);
         }
 
         @keyframes traceOnce {
@@ -180,25 +321,153 @@ export default function Home() {
           100% { opacity: 0; stroke-dashoffset: -520; }
         }
 
-        /* sequence timing */
-        .trace-0 .trace-stroke { animation: traceOnce 5.2s linear 1 forwards; animation-delay: 0.6s; }
-        .trace-1 .trace-stroke { animation: traceOnce 5.2s linear 1 forwards; animation-delay: 6.3s; }
-        .trace-2 .trace-stroke { animation: traceOnce 5.2s linear 1 forwards; animation-delay: 12.0s; }
+        .home-menu-btn {
+          height: 34px;
+          padding-left: 18px;
+          padding-right: 18px;
+          font-size: 0.875rem;
+        }
+
+        .home-icon-btn {
+          height: 34px;
+          min-width: 44px;
+          padding-left: 14px;
+          padding-right: 14px;
+        }
+
+        .plain-linkedin {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: rgba(212,212,216,0.72);
+          transition: color 220ms ease, text-shadow 220ms ease, transform 220ms ease;
+        }
+
+        .plain-linkedin:hover {
+          color: rgba(244,244,245,0.92);
+          text-shadow: 0 0 14px rgba(244,244,245,0.16);
+          transform: translateY(-1px);
+        }
+
+        .menu-copy {
+          margin-top: 0.2rem;
+          color: rgba(161,161,170,0.70);
+          font-size: 0.68rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+
+        .soon-signal {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.45rem;
+          min-height: 34px;
+          color: rgba(212,212,216,0.70);
+          font-size: 0.68rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          opacity: 0;
+          animation: soonLightning 8.4s steps(1, end) infinite;
+          animation-delay: var(--soon-delay);
+        }
+
+        .soon-dot {
+          width: 0.32rem;
+          height: 0.32rem;
+          border-radius: 9999px;
+          background: rgba(244,244,245,0.68);
+          box-shadow: 0 0 0 rgba(244,244,245,0);
+        }
+
+        @keyframes soonLightning {
+          0%, 8%, 12%, 15%, 40%, 43%, 58%, 61%, 100% {
+            opacity: 0;
+            text-shadow: none;
+            filter: none;
+            transform: translateY(1px);
+          }
+          9% {
+            opacity: 0.28;
+            text-shadow: 0 0 4px rgba(255,255,255,0.10);
+            transform: translateY(0);
+          }
+          10% {
+            opacity: 0.92;
+            text-shadow: 0 0 16px rgba(255,255,255,0.28), 0 0 3px rgba(255,255,255,0.18);
+            filter: brightness(1.35);
+            transform: translateY(0);
+          }
+          11%, 42%, 60% {
+            opacity: 0.16;
+            text-shadow: none;
+            filter: none;
+          }
+          41% {
+            opacity: 0.72;
+            text-shadow: 0 0 12px rgba(255,255,255,0.18);
+            filter: brightness(1.15);
+          }
+          59% {
+            opacity: 0.88;
+            text-shadow: 0 0 18px rgba(255,255,255,0.24);
+            filter: brightness(1.3);
+          }
+        }
+
+        .portfolio-open-signal {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 34px;
+          color: rgba(212,212,216,0.70);
+          font-size: 0.875rem;
+          line-height: 1;
+          transition: color 220ms ease, text-shadow 220ms ease, transform 220ms ease;
+        }
+
+        .portfolio-row:hover .portfolio-open-signal {
+          color: rgba(244,244,245,0.92);
+          text-shadow: 0 0 14px rgba(244,244,245,0.16);
+          transform: translateX(2px);
+        }
+
+        .portfolio-row {
+          position: relative;
+        }
+
+        .portfolio-row::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0.75rem;
+          bottom: 0.75rem;
+          width: 1px;
+          border-radius: 9999px;
+          background: rgba(244,244,245,0);
+          box-shadow: 0 0 0 rgba(244,244,245,0);
+          transition: background 220ms ease, box-shadow 220ms ease;
+        }
+
+        .portfolio-row:hover::before {
+          background: rgba(244,244,245,0.56);
+          box-shadow: 0 0 14px rgba(244,244,245,0.18);
+        }
 
         @media (prefers-reduced-motion: reduce) {
-          .trace-0 .trace-stroke,
-          .trace-1 .trace-stroke,
-          .trace-2 .trace-stroke { animation: none !important; opacity: 0 !important; }
-          .wave-shadow { animation: none !important; }
+          .trace-stroke { animation: none !important; opacity: 0 !important; }
+          .wave-shadow,
+          .soon-signal { animation: none !important; }
+          .soon-signal { opacity: 0.55 !important; }
         }
       `}</style>
 
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col py-10 sm:py-14">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col py-6 sm:py-8">
         {/* a bit lower on desktop */}
-        <div className="h-3 sm:h-5" />
+        <div className="h-1 sm:h-2" />
 
         {/* Responsive spacer: puts content lower + more centered on mobile */}
-        <div className="h-3 sm:h-8" />
+        <div className="h-1 sm:h-3" />
 
         {/* THE MENU */}
         <section className="text-center">
@@ -208,100 +477,101 @@ export default function Home() {
         </section>
 
         {/* Cards */}
-        <section className="mt-5 sm:mt-6 pb-1">
-          <div className="space-y-3">
-            {/* Midsummer */}
-            <TraceBorderCard seqClassName="trace-0">
-              <div className="px-4 sm:px-5 py-3.5 sm:py-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
-                  <div className="min-w-0">
-                    <h2 className="text-lg sm:text-xl font-medium smog-strong">
-                      Midsummer Lab
-                    </h2>
-                    <p className="mt-1 text-[15px] sm:text-base smog-muted">
-                      Spoken exploration of the tools for a postponed life.
-                    </p>
-                  </div>
+        <section className="mt-4 pb-1">
+          <div className="space-y-2">
+            {MENU_CARDS.map((card, index) => (
+              <TraceBorderCard key={card.title} delay={0.6 + index * 2.4}>
+                <div className="px-4 sm:px-5 py-2 sm:py-2.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-5">
+                    <div className="min-w-0">
+                      <h2 className="text-base sm:text-lg font-medium smog-strong">
+                        {card.title}
+                      </h2>
+                      {card.body ? (
+                        <p className="menu-copy">
+                          {card.body}
+                        </p>
+                      ) : null}
+                    </div>
 
-                  <a
-                    href="https://midsummerlab.com"
-                    className="gs-btn gs-btn-5 w-full sm:w-auto text-center"
-                  >
-                    Open
-                  </a>
-                </div>
-              </div>
-            </TraceBorderCard>
-
-            {/* One */}
-            <TraceBorderCard seqClassName="trace-1">
-              <div className="px-4 sm:px-5 py-3.5 sm:py-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
-                  <div className="min-w-0">
-                    <h2 className="text-lg sm:text-xl font-medium smog-strong">
-                      One
-                    </h2>
-                    <p className="mt-1 text-[15px] sm:text-base smog-muted">
-                      A chatbot for building trust in the voice.
-                    </p>
-                  </div>
-
-                  <div className="w-full sm:w-auto text-center">
-                    <span className="text-red-500 font-medium">
-                      On a shelf
-                    </span>
+                    {card.action ? (
+                      <ActionLink action={card.action} />
+                    ) : card.actions ? (
+                      <MentoringActions actions={card.actions} />
+                    ) : card.status ? (
+                      <div className="w-full sm:w-auto sm:min-w-36 sm:text-center">
+                        <SoonSignal label={card.status} delay={index * 0.75} />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
-              </div>
-            </TraceBorderCard>
+              </TraceBorderCard>
+            ))}
 
-            {/* Divider */}
-            <div className="my-5 sm:my-7 text-center">
+            <div className="my-2.5 sm:my-3 text-center">
               <span className="inline-block smog font-semibold tracking-wider select-none opacity-70">
                 ----------------
               </span>
             </div>
 
-            {/* Portfolio */}
-            <TraceBorderCard seqClassName="trace-2">
-              <div className="px-4 sm:px-5 py-3.5 sm:py-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-5">
-                  <div className="flex items-center gap-4 min-w-0">
-                    <Thumb
-                      src="/images/portfolio/gio-logo.png"
-                      alt="Giuseppe logo"
-                      size={52}
-                    />
-                    <div className="min-w-0">
-                      <h2 className="text-lg sm:text-xl font-medium smog-strong">
-                        Portfolio
-                      </h2>
-                      <p className="mt-1 text-[15px] sm:text-base smog-muted">
-                        A collection of past work.
-                      </p>
-                    </div>
+            <TraceBorderCard delay={10.2}>
+              <div className="px-4 sm:px-5 py-2.5 sm:py-3">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-5">
+                  <div className="min-w-0">
+                    <h2 className="text-base sm:text-lg font-medium smog-strong">
+                      Portfolio
+                    </h2>
+                    <p className="menu-copy">
+                      Work chapters, acting, and one room still forming.
+                    </p>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
-                    <div className="flex items-center justify-center sm:justify-start gap-3">
-                      <a
-                        href="https://www.linkedin.com/in/giuseppe-solazzo/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="gs-btn gs-btn-5 gs-btn-icon"
-                        aria-label="Open Giuseppe on LinkedIn"
-                        title="LinkedIn"
+                  <a
+                    href="https://www.linkedin.com/in/giuseppe-solazzo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gs-btn gs-btn-5 gs-btn-icon home-icon-btn w-full sm:w-auto"
+                    aria-label="Open Giuseppe on LinkedIn"
+                    title="LinkedIn"
+                  >
+                    <LinkedInIconBW size={16} />
+                  </a>
+                </div>
+
+                <div className="mt-2.5 divide-y divide-zinc-800/80 border-y border-zinc-800/80">
+                  {PORTFOLIO_ROOMS.map((room, index) => {
+                    const content = (
+                      <span className="portfolio-row flex flex-col gap-1.5 py-2 pl-3 sm:flex-row sm:items-center sm:justify-between">
+                        <span className="min-w-0">
+                          <span className="block text-[15px] font-medium smog-strong">
+                            {room.title}
+                          </span>
+                          <span className="mt-0.5 block text-sm smog-muted">{room.body}</span>
+                        </span>
+                        <span className="w-full sm:w-auto sm:min-w-36 sm:text-center">
+                          {room.href ? (
+                            <span className="portfolio-open-signal" aria-hidden="true">
+                              Open
+                            </span>
+                          ) : (
+                            <SoonSignal label={room.status} delay={1.2 + index * 0.8} />
+                          )}
+                        </span>
+                      </span>
+                    );
+
+                    return room.href ? (
+                      <Link
+                        key={room.title}
+                        href={room.href}
+                        className="block transition hover:text-zinc-100"
                       >
-                        <LinkedInIconBW size={16} />
-                      </a>
-
-                      <span className="text-zinc-700 select-none">/</span>
-
-                      <Link href="/portfolio" className="gs-btn gs-btn-5">
-                        Browse
+                        {content}
                       </Link>
-                    </div>
-                  </div>
+                    ) : (
+                      <div key={room.title}>{content}</div>
+                    );
+                  })}
                 </div>
               </div>
             </TraceBorderCard>

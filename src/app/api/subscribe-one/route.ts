@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 
-// Pull src/utm from the page the form was submitted on (Referer)
 function parseQueryFromReferer(referer?: string | null) {
   try {
     if (!referer) return {};
-    const u = new URL(referer);
-    const q = u.searchParams;
-    const get = (k: string) => q.get(k) || undefined;
+    const url = new URL(referer);
+    const query = url.searchParams;
+    const get = (key: string) => query.get(key) || undefined;
     return {
       src: get("src"),
       utm_source: get("utm_source"),
@@ -19,11 +18,10 @@ function parseQueryFromReferer(referer?: string | null) {
   }
 }
 
-// build a metadata object that excludes null/undefined (Buttondown rejects null)
 function buildMetadata(obj: Record<string, string | undefined | null>) {
   const out: Record<string, string> = {};
-  for (const [k, v] of Object.entries(obj)) {
-    if (typeof v === "string" && v.length) out[k] = v;
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === "string" && value.length) out[key] = value;
   }
   return Object.keys(out).length ? out : undefined;
 }
@@ -35,76 +33,69 @@ async function subscribeToButtondown(
   const apiKey = process.env.BUTTONDOWN_API_KEY;
   if (!apiKey) throw new Error("Missing BUTTONDOWN_API_KEY");
 
-  const qp = parseQueryFromReferer(opts.referer);
+  const query = parseQueryFromReferer(opts.referer);
 
-  // Tags: easy segmentation in Buttondown
   const tags = [
     "One-Interest",
-    qp.src ? `src-${qp.src}` : undefined,
-    qp.utm_campaign ? `utm-${qp.utm_campaign}` : undefined,
+    query.src ? `src-${query.src}` : undefined,
+    query.utm_campaign ? `utm-${query.utm_campaign}` : undefined,
     opts.country ? `ctry-${opts.country}` : undefined,
   ].filter(Boolean) as string[];
 
-  // Notes: free-text searchable audit trail
   const notes = [
-    qp.src ? `src=${qp.src}` : null,
-    qp.utm_source ? `utm_source=${qp.utm_source}` : null,
-    qp.utm_medium ? `utm_medium=${qp.utm_medium}` : null,
-    qp.utm_campaign ? `utm_campaign=${qp.utm_campaign}` : null,
+    query.src ? `src=${query.src}` : null,
+    query.utm_source ? `utm_source=${query.utm_source}` : null,
+    query.utm_medium ? `utm_medium=${query.utm_medium}` : null,
+    query.utm_campaign ? `utm_campaign=${query.utm_campaign}` : null,
     opts.country ? `country=${opts.country}` : null,
-    qp.ref ? `ref=${qp.ref}` : null,
+    query.ref ? `ref=${query.ref}` : null,
   ]
     .filter(Boolean)
     .join("; ");
 
-  // Metadata: send ONLY defined keys (no nulls)
   const metadata = buildMetadata({
-    src: qp.src,
-    utm_source: qp.utm_source,
-    utm_medium: qp.utm_medium,
-    utm_campaign: qp.utm_campaign,
+    src: query.src,
+    utm_source: query.utm_source,
+    utm_medium: query.utm_medium,
+    utm_campaign: query.utm_campaign,
     country: opts.country ?? undefined,
   });
 
-  const payload = {
-    email_address: email,
-    email,
-    tags,
-    metadata, // undefined is fine; Buttondown will ignore
-    referrer_url: opts.referer || undefined,
-    notes: notes || undefined,
-  };
-
-  const res = await fetch("https://api.buttondown.email/v1/subscribers", {
+  const response = await fetch("https://api.buttondown.email/v1/subscribers", {
     method: "POST",
     headers: {
       Authorization: `Token ${apiKey}`,
       "Content-Type": "application/json",
       Accept: "application/json",
-      // "X-Buttondown-API-Version": "2025-06-01",
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      email_address: email,
+      email,
+      tags,
+      metadata,
+      referrer_url: opts.referer || undefined,
+      notes: notes || undefined,
+    }),
     cache: "no-store",
   });
 
-  if (res.ok || res.status === 201) return true;
+  if (response.ok || response.status === 201) return true;
 
-  // Treat “already exists” as success so UX stays smooth
-  if ([400, 409, 422].includes(res.status)) {
-    const text = await res.text().catch(() => "");
+  if ([400, 409, 422].includes(response.status)) {
+    const text = await response.text().catch(() => "");
     if (/already|exists/i.test(text)) return true;
-    throw new Error(`Buttondown error ${res.status}: ${text}`);
+    throw new Error(`Buttondown error ${response.status}: ${text}`);
   }
 
-  throw new Error(`Buttondown error ${res.status}: ${await res.text().catch(() => "")}`);
+  throw new Error(`Buttondown error ${response.status}: ${await response.text().catch(() => "")}`);
 }
 
 export async function POST(req: Request) {
   try {
-    // Accept JSON and form posts
     let email = "";
-    const ct = req.headers.get("content-type") || "";
-    if (ct.includes("application/json")) {
+    const contentType = req.headers.get("content-type") || "";
+
+    if (contentType.includes("application/json")) {
       const json = await req.json();
       email = (json.email || json.email_address || "").toString().trim();
     } else {
@@ -121,11 +112,9 @@ export async function POST(req: Request) {
       country: req.headers.get("x-vercel-ip-country"),
     });
 
-    // Always send users to the thank-you page
     return NextResponse.redirect(new URL("/one/thanks", req.url), 303);
-  } catch (err) {
-    console.error(err);
-    // Keep UX smooth even on API error
+  } catch (error) {
+    console.error(error);
     return NextResponse.redirect(new URL("/one/thanks", req.url), 303);
   }
 }

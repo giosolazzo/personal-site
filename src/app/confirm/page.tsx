@@ -10,9 +10,8 @@ export default function ConfirmRouter() {
     try {
       const last = localStorage.getItem("ms_last_signup") || "";
 
-      // If the last signup was Eon, go to its thank-you page
-      if (last === "eon") {
-        router.replace("/eon/thanks");
+      if (last === "one") {
+        router.replace("/one/thanks");
         return;
       }
 
@@ -44,7 +43,7 @@ export default function ConfirmRouter() {
         <p className="text-sm text-zinc-500">
           If this doesn’t continue, go to{" "}
           <a className="underline" href="/midsummer">Midsummer</a> or{" "}
-          <a className="underline" href="/eon/thanks">Eon</a>.
+          <a className="underline" href="/one/thanks">One</a>.
         </p>
       </div>
     </main>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="240" viewBox="0 0 720 240" role="img" aria-labelledby="title desc">
+  <title id="title">Behavera mark</title>
+  <desc id="desc">Simple pulse mark for Behavera.</desc>
+  <style>
+    .pulse { fill: none; stroke: #f4d35e; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100 520; animation: move 2.8s linear infinite; }
+    .base { fill: none; stroke: rgba(255,247,214,.2); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    .txt { fill: #fff7d6; font: 700 64px Arial, Helvetica, sans-serif; letter-spacing: 0; }
+    @keyframes move { to { stroke-dashoffset: -620; } }
+  </style>
+  <rect width="720" height="240" rx="48" fill="#121210"/>
+  <path class="base" d="M76 124h72l24-48 38 102 42-164 44 218 42-108h82"/>
+  <path class="pulse" d="M76 124h72l24-48 38 102 42-164 44 218 42-108h82"/>
+  <text class="txt" x="462" y="143" text-anchor="middle">Behavera</text>
+</svg>

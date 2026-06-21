@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="240" viewBox="0 0 720 240" role="img" aria-labelledby="title desc">
+  <title id="title">Service Marketplace Ecosystem mark</title>
+  <desc id="desc">Four service points flowing into one booking action.</desc>
+  <style>
+    .line { fill: none; stroke: rgba(255,247,214,.18); stroke-width: 5; stroke-linecap: round; }
+    .hot { fill: none; stroke: #f4d35e; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1 330; animation: hot 2.8s linear infinite; }
+    .node { fill: #171713; stroke: rgba(255,247,214,.2); stroke-width: 3; }
+    .center { fill: #f4d35e; }
+    .check { fill: none; stroke: #11110f; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .dot { fill: #fff7d6; }
+    @keyframes hot {
+      0% { stroke-dasharray: 1 330; stroke-dashoffset: 0; opacity: 0; }
+      20%, 70% { opacity: .9; }
+      100% { stroke-dasharray: 90 330; stroke-dashoffset: -330; opacity: 0; }
+    }
+  </style>
+  <rect width="720" height="240" rx="48" fill="#121210"/>
+  <path class="line" d="M116 68 C210 70 260 96 360 120"/>
+  <path class="line" d="M116 172 C210 170 260 144 360 120"/>
+  <path class="line" d="M604 68 C510 70 460 96 360 120"/>
+  <path class="line" d="M604 172 C510 170 460 144 360 120"/>
+  <path class="hot" d="M116 68 C210 70 260 96 360 120"/>
+  <path class="hot" style="animation-delay:.45s" d="M116 172 C210 170 260 144 360 120"/>
+  <path class="hot" style="animation-delay:.9s" d="M604 68 C510 70 460 96 360 120"/>
+  <path class="hot" style="animation-delay:1.35s" d="M604 172 C510 170 460 144 360 120"/>
+  <circle class="node" cx="116" cy="68" r="22"/>
+  <circle class="node" cx="116" cy="172" r="22"/>
+  <circle class="node" cx="604" cy="68" r="22"/>
+  <circle class="node" cx="604" cy="172" r="22"/>
+  <circle class="dot" cx="116" cy="68" r="7"/>
+  <circle class="dot" cx="116" cy="172" r="7"/>
+  <circle class="dot" cx="604" cy="68" r="7"/>
+  <circle class="dot" cx="604" cy="172" r="7"/>
+  <circle class="center" cx="360" cy="120" r="48"/>
+  <path class="check" d="M338 121l15 16 31-36"/>
+</svg>

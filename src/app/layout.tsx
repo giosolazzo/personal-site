@@ -16,12 +16,12 @@ export const metadata: Metadata = {
       : "http://localhost:3000"
   ),
   title: { default: "Giuseppe Solazzo", template: "%s · Giuseppe Solazzo" },
-  description: "Landing to Midsummer, Eon, and Portfolio.",
+  description: "Landing to Midsummer, One, and Portfolio.",
   openGraph: {
     type: "website",
     url: "https://giuseppesolazzo.com",
     title: "Giuseppe Solazzo",
-    description: "Landing to Midsummer, Eon, and Portfolio.",
+    description: "Landing to Midsummer, One, and Portfolio.",
     siteName: "Giuseppe Solazzo",
   },
   twitter: { card: "summary_large_image" },

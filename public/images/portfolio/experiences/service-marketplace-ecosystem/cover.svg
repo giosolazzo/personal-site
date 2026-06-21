@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Service Marketplace Ecosystem cover</title>
+  <desc id="desc">A clean animated system where service needs move into one booking action.</desc>
+  <style>
+    .frame { fill: #10100e; stroke: rgba(255,247,214,.1); stroke-width: 3; }
+    .grid { stroke: rgba(255,247,214,.055); stroke-width: 2; }
+    .rail { fill: none; stroke: rgba(255,247,214,.16); stroke-width: 5; stroke-linecap: round; }
+    .railHot { fill: none; stroke: #f4d35e; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 1 860; animation: travel 3.8s linear infinite; }
+    .node { fill: #151512; stroke: rgba(255,247,214,.18); stroke-width: 3; }
+    .center { fill: #f4d35e; }
+    .centerDark { fill: #11110f; }
+    .icon { fill: none; stroke: #fff7d6; stroke-width: 13; stroke-linecap: round; stroke-linejoin: round; }
+    .goldIcon { fill: none; stroke: #f4d35e; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+    .halo { fill: none; stroke: #f4d35e; stroke-width: 4; opacity: .2; animation: halo 2.7s ease-in-out infinite; transform-origin: 600px 600px; }
+    .tap { animation: tap 2.7s ease-in-out infinite; transform-origin: 698px 694px; }
+    .float1 { animation: float 4.2s ease-in-out infinite; }
+    .float2 { animation: float 4.2s ease-in-out infinite; animation-delay: .6s; }
+    .float3 { animation: float 4.2s ease-in-out infinite; animation-delay: 1.2s; }
+    .float4 { animation: float 4.2s ease-in-out infinite; animation-delay: 1.8s; }
+    @keyframes travel {
+      0% { stroke-dasharray: 1 860; stroke-dashoffset: 0; opacity: 0; }
+      12% { opacity: .95; }
+      50% { stroke-dasharray: 145 860; opacity: .95; }
+      100% { stroke-dasharray: 1 860; stroke-dashoffset: -860; opacity: 0; }
+    }
+    @keyframes halo {
+      0%, 100% { transform: scale(.86); opacity: .12; }
+      45% { transform: scale(1.08); opacity: .32; }
+    }
+    @keyframes tap {
+      0%, 64%, 100% { transform: translate(0, 0) scale(1); }
+      72% { transform: translate(-18px, -18px) scale(.96); }
+      80% { transform: translate(-10px, -10px) scale(1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+
+  <rect width="1200" height="1200" fill="#0b0b0a"/>
+  <rect class="frame" x="88" y="88" width="1024" height="1024" rx="86"/>
+
+  <g>
+    <path class="grid" d="M220 188v824M380 188v824M540 188v824M700 188v824M860 188v824M1020 188v824"/>
+    <path class="grid" d="M188 220h824M188 380h824M188 540h824M188 700h824M188 860h824M188 1020h824"/>
+  </g>
+
+  <path id="pathTop" class="rail" d="M330 300 C430 300 500 448 600 600"/>
+  <path id="pathRight" class="rail" d="M900 390 C760 428 700 510 600 600"/>
+  <path id="pathBottom" class="rail" d="M820 900 C730 800 690 710 600 600"/>
+  <path id="pathLeft" class="rail" d="M290 780 C390 736 490 690 600 600"/>
+
+  <path class="railHot" d="M330 300 C430 300 500 448 600 600"/>
+  <path class="railHot" style="animation-delay:.55s" d="M900 390 C760 428 700 510 600 600"/>
+  <path class="railHot" style="animation-delay:1.1s" d="M820 900 C730 800 690 710 600 600"/>
+  <path class="railHot" style="animation-delay:1.65s" d="M290 780 C390 736 490 690 600 600"/>
+
+  <circle class="halo" cx="600" cy="600" r="178"/>
+  <circle class="halo" cx="600" cy="600" r="236" style="animation-delay:.55s"/>
+
+  <g class="float1">
+    <circle class="node" cx="330" cy="300" r="82"/>
+    <path class="icon" d="M288 314h84M304 314v-44h52v44M286 298l44-38 44 38"/>
+  </g>
+
+  <g class="float2">
+    <circle class="node" cx="900" cy="390" r="82"/>
+    <path class="icon" d="M866 416l58-58M852 356l28 28M920 424l28 28M848 424l20 20"/>
+  </g>
+
+  <g class="float3">
+    <circle class="node" cx="820" cy="900" r="82"/>
+    <path class="icon" d="M776 884h88M788 924h64M790 856h60M810 856v68"/>
+  </g>
+
+  <g class="float4">
+    <circle class="node" cx="290" cy="780" r="82"/>
+    <path class="icon" d="M254 800c0-42 72-42 72 0M266 756h48M276 734h28"/>
+  </g>
+
+  <g>
+    <circle class="center" cx="600" cy="600" r="132"/>
+    <circle class="centerDark" cx="600" cy="600" r="86"/>
+    <path class="goldIcon" d="M558 602l30 30 60-72"/>
+  </g>
+
+  <g class="tap">
+    <path d="M686 684l64 24-31 14 21 44-28 13-21-44-26 26z" fill="#fff7d6"/>
+    <path d="M685 684l64 24-31 14 21 44-28 13-21-44-26 26z" fill="none" stroke="#11110f" stroke-width="5" stroke-linejoin="round"/>
+  </g>
+</svg>

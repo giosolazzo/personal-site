@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Behavera cover</title>
+  <desc id="desc">Animated people analytics pulse flowing through teams and leadership signals.</desc>
+  <style>
+    .frame { fill: #10100f; stroke: rgba(255,255,255,.12); stroke-width: 3; }
+    .grid { stroke: rgba(255,255,255,.055); stroke-width: 2; }
+    .person { fill: #171715; stroke: rgba(255,255,255,.18); stroke-width: 3; }
+    .head { fill: #fff7d6; }
+    .body { fill: none; stroke: #fff7d6; stroke-width: 13; stroke-linecap: round; }
+    .pulseBase { fill: none; stroke: rgba(244,211,94,.18); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    .pulseHot { fill: none; stroke: #f4d35e; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 120 900; animation: move 3.4s linear infinite; }
+    .ring { fill: none; stroke: #f4d35e; stroke-width: 4; opacity: .24; animation: ring 2.8s ease-in-out infinite; transform-origin: center; }
+    .ring2 { animation-delay: .7s; }
+    .bar { fill: #f4d35e; opacity: .62; animation: bars 2.6s ease-in-out infinite; transform-origin: bottom; }
+    .bar2 { animation-delay: .35s; }
+    .bar3 { animation-delay: .7s; }
+    .bar4 { animation-delay: 1.05s; }
+    @keyframes move { to { stroke-dashoffset: -1020; } }
+    @keyframes ring {
+      0%, 100% { transform: scale(.86); opacity: .1; }
+      50% { transform: scale(1.12); opacity: .34; }
+    }
+    @keyframes bars {
+      0%, 100% { transform: scaleY(.56); }
+      50% { transform: scaleY(1); }
+    }
+  </style>
+
+  <rect width="1200" height="1200" fill="#0b0b0a"/>
+  <rect class="frame" x="88" y="88" width="1024" height="1024" rx="86"/>
+  <path class="grid" d="M240 180v840M400 180v840M560 180v840M720 180v840M880 180v840"/>
+  <path class="grid" d="M180 240h840M180 400h840M180 560h840M180 720h840M180 880h840"/>
+
+  <circle class="ring" cx="600" cy="592" r="246"/>
+  <circle class="ring ring2" cx="600" cy="592" r="318"/>
+
+  <path class="pulseBase" d="M218 610H360l38-86 62 178 64-292 72 392 74-250 44 58h268"/>
+  <path class="pulseHot" d="M218 610H360l38-86 62 178 64-292 72 392 74-250 44 58h268"/>
+
+  <g>
+    <circle class="person" cx="342" cy="342" r="88"/>
+    <circle class="head" cx="342" cy="318" r="26"/>
+    <path class="body" d="M300 378c18-34 66-34 84 0"/>
+  </g>
+
+  <g>
+    <circle class="person" cx="858" cy="342" r="88"/>
+    <circle class="head" cx="858" cy="318" r="26"/>
+    <path class="body" d="M816 378c18-34 66-34 84 0"/>
+  </g>
+
+  <g>
+    <circle class="person" cx="342" cy="858" r="88"/>
+    <circle class="head" cx="342" cy="834" r="26"/>
+    <path class="body" d="M300 894c18-34 66-34 84 0"/>
+  </g>
+
+  <g>
+    <circle class="person" cx="858" cy="858" r="88"/>
+    <circle class="head" cx="858" cy="834" r="26"/>
+    <path class="body" d="M816 894c18-34 66-34 84 0"/>
+  </g>
+
+  <circle cx="600" cy="592" r="128" fill="#f4d35e"/>
+  <circle cx="600" cy="592" r="84" fill="#11110f"/>
+  <path d="M558 604l30 30 62-72" fill="none" stroke="#f4d35e" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect class="bar" x="522" y="940" width="26" height="92" rx="13"/>
+  <rect class="bar bar2" x="570" y="900" width="26" height="132" rx="13"/>
+  <rect class="bar bar3" x="618" y="860" width="26" height="172" rx="13"/>
+  <rect class="bar bar4" x="666" y="920" width="26" height="112" rx="13"/>
+</svg>
