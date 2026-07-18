@@ -10,7 +10,6 @@ export default function NotFound() {
         <p className="text-zinc-400">Try one of these:</p>
         <div className="flex gap-3 justify-center flex-wrap">
           <Link href="/" className="px-4 py-2 border border-zinc-700 hover:border-zinc-200 transition">Home</Link>
-          <Link href="/one" className="px-4 py-2 border border-zinc-700 hover:border-zinc-200 transition">One</Link>
           <Link href="/portfolio" className="px-4 py-2 border border-zinc-700 hover:border-zinc-200 transition">Portfolio</Link>
         </div>
       </div>

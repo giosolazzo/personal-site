@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "A short note on what this site collects and how to reach me.",
 };
 
-const UPDATED = "2026-06-21";
+const UPDATED = "2026-07-18";
 
 const sections = [
   {
@@ -24,10 +24,9 @@ const sections = [
     ],
   },
   {
-    title: "One",
+    title: "Newsletter",
     lines: [
-      "If you join the One list, Buttondown stores your email and small signup context like source, referrer, or country when available.",
-      "There is also a tiny browser note, `ms_last_signup`, so the confirmation page knows where to send you.",
+      "If you join my newsletter, Buttondown stores your email and small signup context like source, referrer, or country when available.",
       "Unsubscribe anytime.",
     ],
   },

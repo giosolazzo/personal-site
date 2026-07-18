@@ -20,11 +20,17 @@ type MenuActions = {
   linkedin: MenuAction;
 };
 
+type BehaveraActions = {
+  website: MenuAction;
+  calendar: MenuAction;
+};
+
 type MenuCard = {
   title: string;
   body: string;
   action?: MenuAction;
   actions?: MenuActions;
+  behaveraActions?: BehaveraActions;
   status?: string;
 };
 
@@ -39,9 +45,20 @@ const MENU_CARDS: MenuCard[] = [
     },
   },
   {
-    title: "One",
-    body: "A chatbot for building trust in the voice.",
-    status: "On a shelf",
+    title: "Behavera",
+    body: "Visibility into the human layer of a company.",
+    behaveraActions: {
+      website: {
+        label: "Open",
+        href: "https://www.behavera.com/",
+        external: true,
+      },
+      calendar: {
+        label: "Schedule with me",
+        href: "https://calendar.app.google/Jv3iF4UpLyEPuV4B6",
+        external: true,
+      },
+    },
   },
   {
     title: "Mentoring",
@@ -73,13 +90,8 @@ const PORTFOLIO_ROOMS = [
     status: "Open",
   },
   {
-    title: "Acting",
+    title: "Theatre acting",
     body: "Voice, body, pressure, play.",
-    status: "coming soon",
-  },
-  {
-    title: "-----",
-    body: "Not ready for light yet.",
     status: "coming soon",
   },
 ];
@@ -207,6 +219,25 @@ function MentoringActions({ actions }: { actions: MenuActions }) {
   );
 }
 
+function BehaveraCardActions({ actions }: { actions: BehaveraActions }) {
+  return (
+    <div className="flex w-full items-center justify-center gap-3 sm:w-auto">
+      <a
+        href={actions.calendar.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="plain-linkedin"
+        aria-label={actions.calendar.label}
+        title={actions.calendar.label}
+      >
+        <CalendarIcon size={17} />
+      </a>
+      <span className="text-zinc-700 select-none">/</span>
+      <ActionLink action={actions.website} />
+    </div>
+  );
+}
+
 function SoonSignal({ label, delay = 0 }: { label: string; delay?: number }) {
   return (
     <span
@@ -232,6 +263,28 @@ function LinkedInIconBW({ size = 16 }: { size?: number }) {
       <path
         fill="currentColor"
         d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.5 23.5h4V7.98h-4V23.5ZM8.5 7.98h3.83v2.12h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1v9.36h-4v-8.3c0-1.98-.04-4.52-2.76-4.52-2.76 0-3.18 2.16-3.18 4.39v8.43h-4V7.98Z"
+      />
+    </svg>
+  );
+}
+
+function CalendarIcon({ size = 17 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+      className="inline-block"
+    >
+      <path
+        d="M7 3v3M17 3v3M4.5 9.5h15M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -498,6 +551,8 @@ export default function Home() {
                       <ActionLink action={card.action} />
                     ) : card.actions ? (
                       <MentoringActions actions={card.actions} />
+                    ) : card.behaveraActions ? (
+                      <BehaveraCardActions actions={card.behaveraActions} />
                     ) : card.status ? (
                       <div className="w-full sm:w-auto sm:min-w-36 sm:text-center">
                         <SoonSignal label={card.status} delay={index * 0.75} />
@@ -514,7 +569,7 @@ export default function Home() {
               </span>
             </div>
 
-            <TraceBorderCard delay={10.2}>
+            <TraceBorderCard delay={12.6}>
               <div className="px-4 sm:px-5 py-2.5 sm:py-3">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-5">
                   <div className="min-w-0">
@@ -522,7 +577,7 @@ export default function Home() {
                       Portfolio
                     </h2>
                     <p className="menu-copy">
-                      Work chapters, acting, and one room still forming.
+                      Work chapters and theatre acting.
                     </p>
                   </div>
 
