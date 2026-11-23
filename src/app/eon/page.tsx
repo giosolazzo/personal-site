@@ -1,5 +1,0 @@
-import { redirect } from "next/navigation";
-
-export default function OneRedirect() {
-  redirect("/one");
-}
